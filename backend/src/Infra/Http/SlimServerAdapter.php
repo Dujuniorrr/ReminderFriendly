@@ -1,10 +1,13 @@
 <?php
+
 namespace Src\Infra\Http;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\App;
 use Slim\Factory\AppFactory;
 use Src\Application\Http\Server\HttpServer;
+
 
 class SlimServerAdapter implements HttpServer
 {
@@ -41,9 +44,18 @@ class SlimServerAdapter implements HttpServer
         $this->app->run();
     }
 
-    private function configCORS(&$app)
+    /**
+     * Configures Cross-Origin Resource Sharing (CORS) settings for the application.
+     *
+     * This method adds middleware to the Slim application to handle CORS headers,
+     * allowing cross-origin requests from specified origins and methods.
+     *
+     * @param \Slim\App $app The Slim application instance to which the CORS middleware will be added.
+     * @return void
+     */
+    private function configCORS(App $app): void
     {
-        $app->add(function ($request, $handler) use ($app) {
+        $app->add(function ($request, $handler) {
             $response = $handler->handle($request);
 
             $response = $response
