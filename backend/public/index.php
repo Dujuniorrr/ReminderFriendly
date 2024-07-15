@@ -1,18 +1,14 @@
 <?php
 
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+use Src\Application\Http\Controller\Reminder\GetReminderController;
+use Src\Infra\Http\SlimServerAdapter;
 
-$app = require __DIR__ . '/app.php';
+require __DIR__ . '/../vendor/autoload.php';
 
-$app->get('/api/hello', function (Request $request, Response $response, $args) {
-    $data = ['msg' => 'test'];
+$httpServer = new SlimServerAdapter();
 
-    $response->getBody()->write(json_encode($data));
-   
-    return $response
-    ->withHeader('Content-Type', 'application/json')
-    ->withStatus(200);
+$httpServer->register('get', '/api/{id}', function () {
+    return [new GetReminderController(), 'handle'];
 });
 
-$app->run();
+$httpServer->run();
