@@ -1,0 +1,13 @@
+FROM node:20 as vue-builder
+
+WORKDIR /app
+
+COPY frontend/package*.json ./
+RUN  npm cache clean --force && npm install && npm install vite --save-dev
+
+COPY frontend/ .
+
+EXPOSE 8000
+
+CMD [ "npm", "run", "dev", "--", "--host", "0.0.0.0" ]
+

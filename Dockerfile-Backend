@@ -1,0 +1,25 @@
+FROM php:8.2-fpm
+
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd && apt-get clean
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+WORKDIR /var/www/html
+
+COPY backend/ .
+
+COPY backend/.env.example .env
+RUN composer install --no-interaction --optimize-autoloader \
+    && chown -R www-data:www-data /var/www/html 
+
+EXPOSE 9000
+
+CMD ["php", "-S", "0.0.0.0:9000", "-t", "public/"]
