@@ -13,6 +13,9 @@ services:
       - ./backend:/var/www/html
     depends_on:
       - mysql
+    networks:
+      - backend_network
+
   frontend:
     build:
       context: .
@@ -20,9 +23,10 @@ services:
     container_name: frontend
     restart: unless-stopped
     ports:
-      -   "8000:8000"
+      - "8000:8000"
     volumes:
       - ./frontend:/app
+ 
 
   mysql:
     image: mysql:5.7
@@ -40,6 +44,11 @@ services:
       MYSQL_PASSWORD: kevi
     volumes:
       - mysql_data:/var/lib/mysql
+    networks:
+      - backend_network
+
+networks:
+  backend_network:
 
 volumes:
   mysql_data:

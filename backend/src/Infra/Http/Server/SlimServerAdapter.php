@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Infra\Http;
+namespace Src\Infra\Http\Server;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -16,6 +16,7 @@ class SlimServerAdapter implements HttpServer
     public function __construct()
     {
         $this->app = AppFactory::create();
+        $this->app->addBodyParsingMiddleware();
         $this->configCORS($this->app);
 
         $this->app->addErrorMiddleware(true, true, true);
@@ -26,7 +27,7 @@ class SlimServerAdapter implements HttpServer
         $this->app->{strtolower($method)}($url, function (Request $request, Response $response, $args) use ($callback) {
             $data = $callback();
 
-            if (!is_array($data) || count($data) !== 2) {
+            if (!is_array($data) || count($data) < 2) {
                 throw new \RuntimeException('Invalid callback return format');
             }
 
@@ -34,8 +35,8 @@ class SlimServerAdapter implements HttpServer
 
             $output = call_user_func_array([$controller, $data[1]], [$args, $request->getParsedBody()]);
 
-            $response->getBody()->write(json_encode($output));
-            return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+            $response->getBody()->write(json_encode($output->data));
+            return $response->withHeader('Content-Type', 'application/json')->withStatus($output->status);
         });
     }
 
