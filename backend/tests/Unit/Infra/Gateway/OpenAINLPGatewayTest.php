@@ -4,6 +4,7 @@ namespace Tests\Unit\Infra\Gateway;
 
 use Exception;
 use PHPUnit\Framework\TestCase;
+use Src\Application\Exceptions\NLPErrorException;
 use Src\Infra\Enviroment\DotEnvAdapter;
 use Src\Infra\Gateway\OpenAINLPGateway;
 use Src\Infra\Http\Server\GuzzleHTTPClient;
@@ -27,7 +28,7 @@ class OpenAINLPGatewayTest extends TestCase
 
     public function testPromptException()
     {
-        $this->expectException(Exception::class);
+        $this->expectException(NLPErrorException::class);
 
         $httpClient = new GuzzleHTTPClient();
 

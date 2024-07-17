@@ -54,7 +54,7 @@ class DatabaseReminderRepository implements ReminderRepository
 
         try {
             $result = $this->connection->query($query, $params);
-            return !empty($result);
+            return empty($result);
         } catch (Exception $e) {
             throw new Exception("Error deleting reminder");
         }
@@ -112,6 +112,29 @@ class DatabaseReminderRepository implements ReminderRepository
             return (int) $result[0]['total'];
         } catch (Exception $e) {
             throw new Exception("Error counting reminders: " . $e->getMessage());
+        }
+    }
+
+
+    public function find(string $id): ?Reminder
+    {
+        $query = "SELECT *, reminders.id AS reminderId
+              FROM reminders INNER JOIN characters
+              ON characters.id = reminders.characterId
+              WHERE reminders.id = ?";
+
+        $params = [$id];
+
+        try {
+            $result = $this->connection->query($query, $params);
+
+            if (empty($result)) {
+                return null; 
+            }
+
+            return $this->mapToReminder($result[0]);
+        } catch (Exception $e) {
+            throw new Exception("Error finding reminder: " . $e->getMessage());
         }
     }
 

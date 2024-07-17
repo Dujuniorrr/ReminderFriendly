@@ -37,16 +37,16 @@ class MemoryCharacterRepository implements CharacterRepository
                 'hermione.jpg'
             ),
             '3' => Character::create(
-                '3', // ID ou outro identificador único
-                'Darth Vader', // Nome
-                'Powerful', // Traço característico
-                'Dark Lord of the Sith', // Ocupação
-                'Former Jedi Knight turned Sith Lord', // Descrição
-                'Galactic Empire', // Afiliação
-                'Intimidating', // Característica
-                'Human', // Nacionalidade
-                'Dark Lord of the Sith', // Título
-                'darthvader.jpg' // Imagem
+                '3', 
+                'Darth Vader',
+                'Powerful',
+                'Dark Lord of the Sith',
+                'Former Jedi Knight turned Sith Lord', 
+                'Galactic Empire', 
+                'Intimidating',
+                'Human', 
+                'Dark Lord of the Sith', 
+                'darthvader.jpg' 
             )
             
         ];

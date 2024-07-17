@@ -36,9 +36,10 @@ final class ListRemindersController extends Controller
                 new ListRemindersInput($page, $limit, $status
             ));
             
-            $formattedOutput = array_map(function ($reminder) {
-                return $reminder->toArray();
-            }, $output);
+            $formattedOutput = [];
+            foreach($output as $item){
+                $formattedOutput['reminders'][] = $item->toArray();
+            }
 
             $paginationData = [ 'total' => $total, 'perPage' => $limit, 'currentPage' => $page ];
             

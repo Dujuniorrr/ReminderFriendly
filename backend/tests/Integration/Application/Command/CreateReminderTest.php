@@ -12,6 +12,7 @@ use Src\Application\Commands\CreateReminder;
 use Src\Infra\Repository\DatabaseReminderRepository;
 use Src\Infra\Repository\DatabaseCharacterRepository;
 use Src\Application\DTO\CreateReminder\CreateReminderInput;
+use Src\Application\Exceptions\NLPErrorException;
 
 class CreateReminderTest extends TestCase
 {
@@ -38,7 +39,7 @@ class CreateReminderTest extends TestCase
 
     public function testNoTaskError()
     {
-        $this->expectException(Exception::class);
+        $this->expectException(NLPErrorException::class);
 
         $env = new DotEnvAdapter();
         $connection = new PDOConnection($env);

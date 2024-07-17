@@ -39,7 +39,6 @@ class DatabaseReminderRepositoryTest extends TestCase
             public function lastInsertId(): string
             {
                 return "1";
-
             }
 
             public function query(string $query, array $params = []): array
@@ -76,7 +75,7 @@ class DatabaseReminderRepositoryTest extends TestCase
             public function query(string $query, array $params = []): array
             {
 
-                return [true];
+                return [];
             }
         };
 
@@ -99,7 +98,7 @@ class DatabaseReminderRepositoryTest extends TestCase
 
             public function query(string $query, array $params = []): array
             {
-                return [];
+                return [true];
             }
         };
 

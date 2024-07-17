@@ -5,6 +5,7 @@ namespace Src\Application\Http\Controller\Reminder;
 use Exception;
 use Src\Application\Commands\CreateReminder;
 use Src\Application\DTO\CreateReminder\CreateReminderInput;
+use Src\Application\Exceptions\NLPErrorException;
 use Src\Application\Http\Controller\Controller;
 use Src\Application\Http\Controller\Response;
 use Src\Application\Http\Request\Validator;
@@ -38,7 +39,11 @@ final class CreateReminderController extends Controller
             ));
 
             return new Response($output->toArray(), 200);
-        } catch (Exception $e) {
+        } 
+        catch (NLPErrorException $e) {
+            return new Response(['content_error' => $e->getMessage()], 422);
+        }
+        catch (Exception $e) {
             return new Response(['error' => $e->getMessage()], 422);
         }
     }

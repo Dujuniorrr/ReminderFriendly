@@ -40,4 +40,12 @@ interface ReminderRepository
      * @return int The total number of reminders.
      */
     function count(string $status = 'notSend'): int;
+
+    /**
+     * Find a reminder by ID.
+     *
+     * @param string $id The ID of the reminder to find.
+     * @return Reminder|null The reminder object if found, or null if not found.
+     */
+    function find(string $id): ?Reminder;
 }

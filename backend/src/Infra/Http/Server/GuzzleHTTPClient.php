@@ -64,7 +64,7 @@ class GuzzleHTTPClient implements HTTPClient
         try {
             $response = $this->client->request($method, $url, $options);
             $statusCode = $response->getStatusCode();
-            $body = $response->getBody()->getContents();
+            $body = json_decode($response->getBody()->getContents(), true);
             $headers = $response->getHeaders();
             
             return [

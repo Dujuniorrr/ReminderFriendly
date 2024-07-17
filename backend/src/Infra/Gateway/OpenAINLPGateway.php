@@ -7,6 +7,7 @@ use Src\Application\DTO\NLPGateway\NLPOutput;
 use Src\Application\Enviroment\Env;
 use Src\Domain\Character;
 use Exception;
+use Src\Application\Exceptions\NLPErrorException;
 use Src\Application\Gateways\NLPGateway;
 use Src\Application\Http\Server\HTTPClient;
 
@@ -24,17 +25,17 @@ class OpenAINLPGateway implements NLPGateway
 
     public function formatMessage(string $message, Character $character): NLPOutput
     {
+        $prompt = $this->generatePrompt($message, $character);
 
-        $response = $this->makeRequest($this->generatePrompt($message, $character));
+        $response = $this->makeRequest($prompt)['body'];
 
-        $responseData = json_decode($response['body'], true);
-        $dataFormatted = json_decode($responseData['choices'][0]['message']['content'], true);
+        $processedData = json_decode($response['choices'][0]['message']['content'], true);
 
-        if (isset($dataFormatted['error'])) {
-            throw new Exception($dataFormatted['error']);
+        if (isset($processedData['error'])) {
+            throw new NLPErrorException($processedData['error']);
         }
 
-        $nlpOutput = new NLPOutput($dataFormatted['msg'], new DateTime($dataFormatted['date']));
+        $nlpOutput = new NLPOutput($processedData['msg'], new DateTime($processedData['date']));
 
         return $nlpOutput;
     }

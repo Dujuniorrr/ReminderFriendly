@@ -1,8 +1,10 @@
 <?php
 
 use Src\Application\Commands\CreateReminder;
+use Src\Application\Commands\DeleteReminder;
 use Src\Application\Commands\ListReminders;
 use Src\Application\Http\Controller\Reminder\CreateReminderController;
+use Src\Application\Http\Controller\Reminder\DeleteReminderController;
 use Src\Application\Http\Controller\Reminder\ListRemindersController;
 use Src\Infra\Connection\PDOConnection;
 use Src\Infra\Enviroment\DotEnvAdapter;
@@ -23,6 +25,15 @@ $connection = new PDOConnection($env);
 $httpClient = new GuzzleHTTPClient();
 $reminderRepository = new DatabaseReminderRepository($connection);
 $characterRepository = new DatabaseCharacterRepository($connection);
+
+// listar characters
+
+// enviar msg por whatasapp
+
+$httpServer->register('delete', '/api/reminder/{id}', function () use ($reminderRepository) {
+    $command = new DeleteReminder($reminderRepository);
+    return [ new DeleteReminderController($command), 'handle' ];
+});
 
 $httpServer->register('get', '/api/reminder', function () use ($reminderRepository) {
     $command = new ListReminders($reminderRepository);
