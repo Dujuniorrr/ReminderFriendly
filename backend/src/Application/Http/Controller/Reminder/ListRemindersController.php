@@ -16,6 +16,11 @@ use Src\Application\Http\Request\Validator;
  */
 final class ListRemindersController extends Controller
 {
+    /**
+     * Contructor of List Reminders controller
+     * @param ListReminders $listReminders Command for listing reminders
+     * @param Validator $validator Validator of request params
+     */
     public function __construct(
         readonly private ListReminders $listReminders,
         readonly private Validator $validator

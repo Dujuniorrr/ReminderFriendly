@@ -15,6 +15,15 @@ interface ReminderRepository
     function save(Reminder $reminder): string;
 
     /**
+    * Update a reminder.
+    *
+    * @param Reminder $reminder The reminder object to update.
+    * @return string ID of reminder updated.
+    */
+    function update(Reminder $reminder): string;
+
+
+    /**
      * List all reminders.
      *
      * @param int $page Current Page
@@ -31,7 +40,6 @@ interface ReminderRepository
      * @return bool True if the reminder was deleted successfully, false otherwise.
      */
     function delete(string $id): bool;
-
 
     /**
      * Count reminders based on status.

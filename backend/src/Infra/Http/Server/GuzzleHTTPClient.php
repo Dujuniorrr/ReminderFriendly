@@ -71,6 +71,7 @@ class GuzzleHTTPClient implements HTTPClient
                 'statusCode' => $statusCode,
                 'body' => $body,
                 'headers' => $headers,
+                'success' => ($statusCode >= 200 && $statusCode <= 299)
             ];
         } catch (RequestException $e) {
             throw new \Exception("Failed to request external resource");

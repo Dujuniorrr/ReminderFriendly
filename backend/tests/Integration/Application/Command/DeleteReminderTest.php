@@ -59,7 +59,7 @@ class DeleteReminderTest extends TestCase
             $character,
         );
 
-       $reminderId = $this->reminderRepository->save($reminder);
+        $reminderId = $this->reminderRepository->save($reminder);
 
         $result = $this->deleteReminder->execute($reminderId);
         $this->assertTrue($result);

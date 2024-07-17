@@ -47,6 +47,29 @@ class DatabaseReminderRepository implements ReminderRepository
         }
     }
 
+    public function update(Reminder $reminder): string
+    {
+        $query = "UPDATE reminders SET originalMessage = ?, processedMessage = ?,
+                date = ?, characterId = ?, `send` = ? WHERE id = ?";
+
+        $params = [
+            $reminder->getOriginalMessage(),
+            $reminder->getProcessedMessage(),
+            $reminder->getDate()->format('Y-m-d H:i:s'),
+            $reminder->getCharacter()->getId(),
+            (int) $reminder->getSend(),
+            $reminder->getId(),
+        ];
+
+        try {
+            $this->connection->query($query, $params);
+            return $reminder->getId();
+        } catch (Exception $e) {
+
+            throw new Exception("Error updating reminder");
+        }
+    }
+
     public function delete(string $id): bool
     {
         $query = "DELETE FROM reminders WHERE id = ?";

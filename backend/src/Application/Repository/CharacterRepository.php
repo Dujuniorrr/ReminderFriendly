@@ -21,7 +21,6 @@ interface CharacterRepository
      */
     function count(): int;
 
-
     /**
      * List all characters.
      * @param int $page Current Page

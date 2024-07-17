@@ -16,6 +16,11 @@ use Src\Application\Http\Request\Validator;
  */
 final class ListCharactersController extends Controller
 {
+    /**
+     * Contructor of List Characters controller
+     * @param ListCharacters $listCharacters Command for listing characters
+     * @param Validator $validator Validator of request params
+     */
     public function __construct(
         readonly private ListCharacters $listCharacters,
         readonly private Validator $validator

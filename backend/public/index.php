@@ -4,13 +4,16 @@ use Src\Application\Commands\CreateReminder;
 use Src\Application\Commands\DeleteReminder;
 use Src\Application\Commands\ListCharacters;
 use Src\Application\Commands\ListReminders;
+use Src\Application\Commands\SendReminder;
 use Src\Application\Http\Controller\Character\ListCharactersController;
 use Src\Application\Http\Controller\Reminder\CreateReminderController;
 use Src\Application\Http\Controller\Reminder\DeleteReminderController;
 use Src\Application\Http\Controller\Reminder\ListRemindersController;
+use Src\Application\Http\Controller\Reminder\SendReminderController;
 use Src\Infra\Connection\PDOConnection;
 use Src\Infra\Enviroment\DotEnvAdapter;
 use Src\Infra\Gateway\OpenAINLPGateway;
+use Src\Infra\Gateway\ZAPIMessageSenderGateway;
 use Src\Infra\Http\Request\CreateReminderValidator;
 use Src\Infra\Http\Request\ListCharactersValidator;
 use Src\Infra\Http\Request\ListRemindersValidator;
@@ -53,6 +56,14 @@ $httpServer->register('post', '/api/reminder', function () use (
     $validator = new CreateReminderValidator();
     $command = new CreateReminder($characterRepository, $reminderRepository, $nlpGateway);
     return [ new CreateReminderController($validator, $command), 'handle' ];
+});
+
+$httpServer->register('put', '/api/reminder/{id}/send', function () use (
+    $reminderRepository,$httpClient, $env,
+) {
+    $messageSenderGateway = new ZAPIMessageSenderGateway($httpClient, $env);
+    $command = new SendReminder($reminderRepository, $messageSenderGateway);
+    return [ new SendReminderController($command), 'handle' ];
 });
 
 

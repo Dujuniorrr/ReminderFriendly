@@ -3,41 +3,39 @@
 namespace Src\Application\Http\Controller\Reminder;
 
 use Exception;
-use Src\Application\Commands\DeleteReminder;
-use Src\Application\DTO\DeleteReminder\DeleteReminderInput;
+use Src\Application\Commands\SendReminder;
 use Src\Application\Exceptions\NotFoundException;
 use Src\Application\Http\Controller\Controller;
 use Src\Application\Http\Controller\Response;
-use Src\Application\Http\Request\Validator;
 
 /**
- * Class DeleteReminderController
+ * Class SendReminderController
  * 
- * Controller for handling the deleting of reminders.
+ * Controller for handling the sending of reminders.
  */
-final class DeleteReminderController extends Controller
+final class SendReminderController extends Controller
 {
     /**
-     * @param DeleteReminder $deleteReminder Command for deleting reminders
+     * @param SendReminder $sendReminder Command for send reminders
      */
     public function __construct(
-        readonly private DeleteReminder $deleteReminder
+        readonly private SendReminder $sendReminder
     ) {
     }
 
     public function handle($params, $body): Response
     {
         try {
-            $output = $this->deleteReminder->execute($params['id']);
+            $output = $this->sendReminder->execute($params['id']);
 
             if ($output) {
                 return new Response([
-                    'message' => 'Reminder deleted with success'
+                    'message' => 'Reminder sended with success'
                 ], 200);
             }
 
             return new Response([
-                'message' => 'Not possible delete this Reminder'
+                'message' => 'Not possible send this Reminder'
             ], 403);
 
         } 

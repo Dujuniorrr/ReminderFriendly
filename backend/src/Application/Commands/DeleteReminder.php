@@ -2,14 +2,13 @@
 
 namespace Src\Application\Commands;
 
-use Exception;
 use Src\Application\Exceptions\NotFoundException;
 use Src\Application\Repository\ReminderRepository;
 
 /**
- * Class ListReminder
+ * Class DeleteReminder
  * 
- * Command to list a reminder.
+ * Command to delete a reminder.
  */
 final class DeleteReminder
 {
