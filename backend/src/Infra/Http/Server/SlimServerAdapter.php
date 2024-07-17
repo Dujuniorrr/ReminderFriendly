@@ -33,7 +33,12 @@ class SlimServerAdapter implements HttpServer
 
             $controller = $data[0];
 
-            $output = call_user_func_array([$controller, $data[1]], [$args, $request->getParsedBody()]);
+            $output = call_user_func_array([$controller, $data[1]], [
+                array_merge(
+                    $args,
+                    $request->getQueryParams()
+                ), $request->getParsedBody()
+            ]);
 
             $response->getBody()->write(json_encode($output->data));
             return $response->withHeader('Content-Type', 'application/json')->withStatus($output->status);

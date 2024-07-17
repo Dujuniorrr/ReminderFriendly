@@ -10,16 +10,19 @@ interface ReminderRepository
      * Save a reminder.
      *
      * @param Reminder $reminder The reminder object to save.
-     * @return bool True if the reminder was saved successfully, false otherwise.
+     * @return string ID of reminder save.
      */
-    function save(Reminder $reminder): bool;
+    function save(Reminder $reminder): string;
 
     /**
      * List all reminders.
      *
+     * @param int $page Current Page
+     * @param int $limit Limit of reminders, max 100
+     * @param string $status Status of reminder: all, send
      * @return array<Reminder> An array of Reminder objects.
      */
-    function list(): array;
+    public function list(int $page = 1, int $limit = 10, string $status = 'notSend'): array;
 
     /**
      * Delete a reminder by ID.
@@ -29,7 +32,12 @@ interface ReminderRepository
      */
     function delete(string $id): bool;
 
-   
-}
 
-?>
+    /**
+     * Count reminders based on status.
+     *
+     * @param string $status Status of reminders to count: all, send
+     * @return int The total number of reminders.
+     */
+    function count(string $status = 'notSend'): int;
+}

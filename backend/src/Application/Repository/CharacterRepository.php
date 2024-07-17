@@ -16,10 +16,9 @@ interface CharacterRepository
 
     /**
      * List all characters.
-     *
+     * @param int $page Current Page
+     * @param int $limit Limit of characters, max 100
      * @return array<Character> An array of Character objects.
      */
-    function list(): array;
+    public function list(int $page = 1, int $limit = 10): array;
 }
-
-?>

@@ -18,6 +18,7 @@ class DatabaseCharacterRepository implements CharacterRepository
 
     public function find(string $id): ?Character
     {
+
         $query = "SELECT * FROM characters WHERE id = ?";
         $params = [$id];
 
@@ -36,12 +37,17 @@ class DatabaseCharacterRepository implements CharacterRepository
         }
     }
 
-    public function list(): array
+    public function list(int $page = 1, int $limit = 10): array
     {
-        $query = "SELECT * FROM characters";
+        if ($limit > 100) $limit = 100;
+
+        $offset = ($page - 1) * $limit;
+
+        $query = "SELECT * FROM characters LIMIT ? OFFSET ?";
+        $params = [$limit, $offset];
 
         try {
-            $results = $this->connection->query($query);
+            $results = $this->connection->query($query, $params);
             $characters = [];
 
             foreach ($results as $characterData) {
@@ -53,6 +59,7 @@ class DatabaseCharacterRepository implements CharacterRepository
             throw new Exception("Error listing characters");
         }
     }
+
 
     private function mapToCharacter(array $data): Character
     {

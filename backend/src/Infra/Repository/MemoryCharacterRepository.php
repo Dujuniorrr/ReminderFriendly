@@ -57,7 +57,7 @@ class MemoryCharacterRepository implements CharacterRepository
         return isset($this->characters[$id]) ? $this->characters[$id] : null;
     }
 
-    public function list(): array
+    public function list(int $page = 10, int $limit = 0): array
     {
         return $this->characters;
     }

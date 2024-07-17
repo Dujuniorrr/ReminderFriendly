@@ -18,4 +18,11 @@ interface Connection
      * @return mixed The result of the query.
      */
     function query(string $statement, array $params = []): mixed;
+
+    /**
+     * Retrieve last id inserted in database.
+     *
+     * @return string Last id inserted.
+     */
+    public function lastInsertId(): string;
 }

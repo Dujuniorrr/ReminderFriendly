@@ -73,7 +73,7 @@ class GuzzleHTTPClient implements HTTPClient
                 'headers' => $headers,
             ];
         } catch (RequestException $e) {
-            throw new \Exception("Request failed: " . $e->getMessage());
+            throw new \Exception("Failed to request external resource");
         }
     }
 }

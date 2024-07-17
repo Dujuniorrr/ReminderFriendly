@@ -15,7 +15,7 @@ class Reminder
         readonly private string $originalMessage,
         readonly private string $processedMessage,
         readonly private DateTime $date,
-        readonly private string $characterId
+        readonly private Character $character
     ) {
         $this->send = false;
         $this->createdAt = new DateTime('now');
@@ -26,7 +26,7 @@ class Reminder
         string $originalMessage,
         string $processedMessage,
         DateTime $date,
-        string $characterId,
+        Character $character,
         DateTime $createdAt,
         bool $send
     ): self {
@@ -34,7 +34,7 @@ class Reminder
             $originalMessage,
             $processedMessage,
             $date,
-            $characterId
+            $character
         );
         $instance->createdAt = $createdAt;
         $instance->send = $send;
@@ -103,10 +103,10 @@ class Reminder
     }
 
     /**
-     * Get the value of characterId
+     * Get the value of character
      */
-    public function getCharacterId()
+    public function getCharacter()
     {
-        return $this->characterId;
+        return $this->character;
     }
 }

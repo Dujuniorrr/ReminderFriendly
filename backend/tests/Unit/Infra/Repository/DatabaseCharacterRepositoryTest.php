@@ -16,6 +16,13 @@ class DatabaseCharacterRepositoryTest extends TestCase
 
         $connection = new class implements Connection
         {
+
+
+            public function lastInsertId(): string
+            {
+                return "1";
+            }
+
             public function query(string $statement, array $params = []): mixed
             {
                 return [
@@ -48,6 +55,13 @@ class DatabaseCharacterRepositoryTest extends TestCase
     {
         $connection = new class implements Connection
         {
+
+
+            public function lastInsertId(): string
+            {
+                return "1";
+            }
+
             function query(string $statement, array $params = []): mixed
             {
                 return [];
@@ -65,6 +79,11 @@ class DatabaseCharacterRepositoryTest extends TestCase
     {
         $connection = new class implements Connection
         {
+            public function lastInsertId(): string
+            {
+                return "1";
+            }
+
             function query(string $statement, array $params = []): mixed
             {
                 return  [
@@ -113,6 +132,13 @@ class DatabaseCharacterRepositoryTest extends TestCase
     {
         $connection = new class implements Connection
         {
+
+
+            public function lastInsertId(): string
+            {
+                return "1";
+            }
+
             function query(string $statement, array $params = []): mixed
             {
                 throw new Exception('Database error');
@@ -130,6 +156,13 @@ class DatabaseCharacterRepositoryTest extends TestCase
     {
         $connection = new class implements Connection
         {
+
+
+            public function lastInsertId(): string
+            {
+                return "1";
+            }
+
             function query(string $statement, array $params = []): mixed
             {
                 throw new Exception('Database error');

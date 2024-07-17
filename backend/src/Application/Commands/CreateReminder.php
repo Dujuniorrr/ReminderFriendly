@@ -49,17 +49,18 @@ final class CreateReminder
                 $input->content,
                 $nlpData->processedMessage,
                 $nlpData->date,
-                $character->getId()
+                $character
             );
 
-            $this->reminderRepository->save($reminder);
+            $reminderId = $this->reminderRepository->save($reminder);
 
             return new CreateReminderOutput(
+                $reminderId,
                 $reminder->getOriginalMessage(),
                 $reminder->getProcessedMessage(),
                 $reminder->getDate()->format('Y-m-d H:i:s'),
                 $reminder->getCreatedAt()->format('Y-m-d H:i:s'),
-                $reminder->getCharacterId(),
+                $reminder->getCharacter()->getId(),
                 $reminder->getSend(),
             );
         }

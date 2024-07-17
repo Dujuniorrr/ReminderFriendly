@@ -14,11 +14,10 @@ class PDOConnection implements Connection
 
     public function __construct(Env $env)
     {
-        
-        if($env->get('ENVIROMENT') == 'PROD' ){
+
+        if ($env->get('ENVIROMENT') == 'PROD') {
             $dsn = "{$env->get('DB_CONNECTION')}:host={$env->get('DB_HOST')};dbname={$env->get('DB_DATABASE')};charset=utf8mb4";
-        }
-        else{
+        } else {
             $dsn = "{$env->get('DB_CONNECTION')}:host={$env->get('DB_HOST_LOCAL')};port={$env->get('DB_PORT')};dbname={$env->get('DB_DATABASE')};charset=utf8mb4";
         }
         $username = $env->get('DB_USERNAME');
@@ -31,6 +30,7 @@ class PDOConnection implements Connection
 
         try {
             $this->pdo = new PDO($dsn, $username, $password, $options);
+            $this->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         } catch (PDOException $e) {
             throw new Exception("Failed to connect to database: " . $e->getMessage());
         }
@@ -48,4 +48,7 @@ class PDOConnection implements Connection
         }
     }
 
+    public function lastInsertId(): string{
+        return $this->pdo->lastInsertId();
+    }
 }

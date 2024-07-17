@@ -15,7 +15,7 @@ use Src\Application\DTO\CreateReminder\CreateReminderInput;
 
 class CreateReminderTest extends TestCase
 {
-    public function testSuccessDate()
+    public function testSuccessReminderCreated()
     {
         $env = new DotEnvAdapter();
         $connection = new PDOConnection($env);
@@ -25,7 +25,6 @@ class CreateReminderTest extends TestCase
         $nlpGateway = new OpenAINLPGateway($httpClient, $env);
         $useCase = new CreateReminder($characterRepository, $reminderRepository, $nlpGateway);
 
-        // Caso de teste com sucesso na interpretação da data
         $output = $useCase->execute(new CreateReminderInput(
             'Dançar na chuva quinta feira as 3 da tarde',
             "1"
@@ -49,7 +48,6 @@ class CreateReminderTest extends TestCase
         $nlpGateway = new OpenAINLPGateway($httpClient, $env);
         $useCase = new CreateReminder($characterRepository, $reminderRepository, $nlpGateway);
 
-        // Caso de teste onde não há menção explícita de uma tarefa 
         $output = $useCase->execute(new CreateReminderInput(
             'Lembrar de algo',
             "1"
@@ -69,7 +67,6 @@ class CreateReminderTest extends TestCase
         $nlpGateway = new OpenAINLPGateway($httpClient, $env);
         $useCase = new CreateReminder($characterRepository, $reminderRepository, $nlpGateway);
 
-        // Caso de teste onde não há menção explícita do horario 
         $output = $useCase->execute(new CreateReminderInput(
             'Lembrar de algo amanhã',
             "1"

@@ -6,41 +6,47 @@ use DateTime;
 use Exception;
 use Src\Application\Connection\Connection;
 use Src\Application\Repository\ReminderRepository;
+use Src\Domain\Character;
 use Src\Domain\Reminder;
 
 class DatabaseReminderRepository implements ReminderRepository
 {
     private Connection $connection;
+    private array $reminderStatus;
 
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
+        $this->reminderStatus = [
+            'send' => 1,
+            'notSend' => 0,
+        ];
     }
 
-    public function save(Reminder $reminder): bool
+    public function save(Reminder $reminder): string
     {
         $query = "INSERT INTO reminders (originalMessage, processedMessage, date, characterId, `send`, createdAt) 
                   VALUES (?, ?, ?, ?, ?, ?)";
-    
-     
+
+
         $params = [
             $reminder->getOriginalMessage(),
             $reminder->getProcessedMessage(),
             $reminder->getDate()->format('Y-m-d H:i:s'),
-            $reminder->getCharacterId(),
+            $reminder->getCharacter()->getId(),
             (int) $reminder->getSend(),
             $reminder->getCreatedAt()->format('Y-m-d H:i:s'),
         ];
-    
+
         try {
             $this->connection->query($query, $params);
-            return true;
+            return $this->connection->lastInsertId();
         } catch (Exception $e) {
-            
+
             throw new Exception("Error saving reminder" . $e->getMessage());
         }
     }
-    
+
     public function delete(string $id): bool
     {
         $query = "DELETE FROM reminders WHERE id = ?";
@@ -55,12 +61,27 @@ class DatabaseReminderRepository implements ReminderRepository
     }
 
 
-    public function list(): array
+    public function list(int $page = 1, int $limit = 10, string $status = 'notSend'): array
     {
-        $query = "SELECT * FROM reminders";
+        if (!isset($this->reminderStatus[$status])) {
+            throw new Exception('Status of reminder invalid. Options: send, notSend');
+        }
+
+        if ($limit > 100) $limit = 100;
+        $offset = ($page - 1) * $limit;
+
+        $statusFilter = $this->reminderStatus[$status];
+
+        $query = "SELECT *, reminders.id AS reminderId
+                  FROM reminders INNER JOIN characters
+                  ON characters.id = reminders.characterId 
+                  WHERE reminders.send = ?
+                  LIMIT ? OFFSET ?";
+
+        $params = [$statusFilter, $limit, $offset];
 
         try {
-            $results = $this->connection->query($query);
+            $results = $this->connection->query($query, $params);
             $reminders = [];
 
             foreach ($results as $reminderData) {
@@ -69,20 +90,53 @@ class DatabaseReminderRepository implements ReminderRepository
 
             return $reminders;
         } catch (Exception $e) {
-            throw new Exception("Error listing reminders");
+            throw new Exception("Error listing reminders" . $e->getMessage());
         }
     }
+
+    public function count(string $status = 'send'): int
+    {
+        if (!isset($this->reminderStatus[$status])) {
+            throw new Exception('Status of reminder invalid. Options: send, notSend');
+        }
+
+        $statusFilter = $this->reminderStatus[$status];
+
+        $query = "SELECT COUNT(*) AS total FROM reminders WHERE send = ?";
+
+        $params = [$statusFilter];
+
+        try {
+            $result = $this->connection->query($query, $params);
+
+            return (int) $result[0]['total'];
+        } catch (Exception $e) {
+            throw new Exception("Error counting reminders: " . $e->getMessage());
+        }
+    }
+
 
     private function mapToReminder(array $data): Reminder
     {
         return Reminder::create(
-            $data['id'],
+            $data['reminderId'],
             $data['originalMessage'],
             $data['processedMessage'],
-            new DateTime($data['date']), // Criando objeto DateTime a partir do banco de dados
-            $data['characterId'],
-            new DateTime($data['createdAt']), // Criando objeto DateTime a partir do banco de dados
-            (bool) $data['send'], // Convertendo para booleano
+            new DateTime($data['date']),
+            Character::create(
+                $data['characterId'],
+                $data['name'],
+                $data['humor'],
+                $data['role'],
+                $data['ageVitality'],
+                $data['origin'],
+                $data['speechMannerisms'],
+                $data['accent'],
+                $data['archetype'],
+                $data['imagePath']
+            ),
+            new DateTime($data['createdAt']),
+            (bool) $data['send'],
         );
     }
 }

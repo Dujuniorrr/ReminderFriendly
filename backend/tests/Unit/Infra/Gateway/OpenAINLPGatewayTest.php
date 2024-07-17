@@ -21,7 +21,7 @@ class OpenAINLPGatewayTest extends TestCase
 
         $character = $repository->find('1');
         $output = $gateway->formatMessage('Treinar para a maratoan de 5km terça que vem, às 4 da tarde', $character);
-        print_r($output);
+        
         $this->assertIsString($output->processedMessage);
     }
 

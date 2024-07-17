@@ -26,14 +26,6 @@ final class CreateReminderController extends Controller
     ) {
     }
 
-    /**
-     * Handles the request to create a reminder.
-     *
-     * @param array $params Request parameters
-     * @param array $body Request body
-     * 
-     * @return Response The HTTP response containing the result of the reminder creation
-     */
     public function handle($params, $body): Response
     {
         $errors = $this->validator->validate($body);

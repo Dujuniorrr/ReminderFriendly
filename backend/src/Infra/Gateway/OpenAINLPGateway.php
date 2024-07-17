@@ -22,7 +22,6 @@ class OpenAINLPGateway implements NLPGateway
         $this->apiKey = $env->get('OPENAI_API_KEY');
     }
 
-
     public function formatMessage(string $message, Character $character): NLPOutput
     {
 
@@ -31,11 +30,9 @@ class OpenAINLPGateway implements NLPGateway
         $responseData = json_decode($response['body'], true);
         $dataFormatted = json_decode($responseData['choices'][0]['message']['content'], true);
 
-
         if (isset($dataFormatted['error'])) {
             throw new Exception($dataFormatted['error']);
         }
-
 
         $nlpOutput = new NLPOutput($dataFormatted['msg'], new DateTime($dataFormatted['date']));
 
@@ -78,7 +75,7 @@ class OpenAINLPGateway implements NLPGateway
     
             Você irá interpretar um personagem, e deve me retornar uma mensagem contendo uma estrutura JSON com as seguintes chaves: 'msg' e 'date', ou apenas com a chave 'error'. Observe: não precisa formatar o JSON com markdown.
     
-            A chave 'msg' deve conter um texto que se trata da sua imitação do personagem {$character->getName()}. Este texto será uma alteração bem humorada do seguinte lembrete: '{$message}'. Certifique-se de incluir o humor característico do personagem, fazendo comentários ou piadas que se adequem à sua personalidade. Use emojis e tente relacionar o texto com a personalidade do personagem o máximo possível. O objetivo é criar um lembrete que seja memorável e adequado à situação.
+            A chave 'msg' deve conter um texto que se trata da sua imitação do personagem {$character->getName()}. Este texto será uma alteração bem humorada do seguinte lembrete: '{$message}', com proposito de lembrar o individuo que o escreveu de sua tarefa. Porém, diferente do lembrete original, o texto não deve mencionar o período, data ou hora da tarefa. Certifique-se de incluir o humor característico do personagem, fazendo comentários ou piadas que se adequem à sua personalidade. Use emojis e tente relacionar o texto com a personalidade do personagem o máximo possível. O objetivo é criar um lembrete que seja memorável e adequado à situação.
     
             Para entender melhor o personagem, aqui vão algumas informações:
             - Nome: {$character->getName()}

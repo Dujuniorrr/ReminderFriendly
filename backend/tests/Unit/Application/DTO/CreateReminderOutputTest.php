@@ -16,6 +16,7 @@ class CreateReminderOutputTest extends TestCase
             '',
             '',
             '',
+            '',
             true
         );
         $this->assertIsArray($output->toArray());
@@ -24,6 +25,7 @@ class CreateReminderOutputTest extends TestCase
     public function testToArrayHasCorrectKeys()
     {
         $dto = new CreateReminderOutput(
+            '',
             '',
             '',
             '',

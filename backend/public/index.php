@@ -1,11 +1,14 @@
 <?php
 
 use Src\Application\Commands\CreateReminder;
+use Src\Application\Commands\ListReminders;
 use Src\Application\Http\Controller\Reminder\CreateReminderController;
+use Src\Application\Http\Controller\Reminder\ListRemindersController;
 use Src\Infra\Connection\PDOConnection;
 use Src\Infra\Enviroment\DotEnvAdapter;
 use Src\Infra\Gateway\OpenAINLPGateway;
 use Src\Infra\Http\Request\CreateReminderValidator;
+use Src\Infra\Http\Request\ListRemindersValidator;
 use Src\Infra\Http\Server\GuzzleHTTPClient;
 use Src\Infra\Http\Server\SlimServerAdapter;
 use Src\Infra\Repository\DatabaseCharacterRepository;
@@ -21,14 +24,20 @@ $httpClient = new GuzzleHTTPClient();
 $reminderRepository = new DatabaseReminderRepository($connection);
 $characterRepository = new DatabaseCharacterRepository($connection);
 
+$httpServer->register('get', '/api/reminder', function () use ($reminderRepository) {
+    $command = new ListReminders($reminderRepository);
+    $validator = new ListRemindersValidator();
+    return [ new ListRemindersController($command, $validator), 'handle' ];
+});
+
 $httpServer->register('post', '/api/reminder', function () use (
     $httpClient, $env, $characterRepository, $reminderRepository,
 ) {
     $nlpGateway = new OpenAINLPGateway($httpClient, $env);
     $validator = new CreateReminderValidator();
-    $useCase = new CreateReminder($characterRepository, $reminderRepository, $nlpGateway);
-    
-    return [ new CreateReminderController($validator, $useCase), 'handle' ];
+    $command = new CreateReminder($characterRepository, $reminderRepository, $nlpGateway);
+    return [ new CreateReminderController($validator, $command), 'handle' ];
 });
+
 
 $httpServer->run();
