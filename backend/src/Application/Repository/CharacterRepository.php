@@ -15,6 +15,14 @@ interface CharacterRepository
     function find(string $id): ?Character;
 
     /**
+     * Count characters.
+     *
+     * @return int The total number of characters.
+     */
+    function count(): int;
+
+
+    /**
      * List all characters.
      * @param int $page Current Page
      * @param int $limit Limit of characters, max 100

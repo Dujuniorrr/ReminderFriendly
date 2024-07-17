@@ -104,7 +104,7 @@ class DatabaseReminderRepositoryTest extends TestCase
 
         $reminderRepository = new DatabaseReminderRepository($mockConnection);
 
-        $result = $reminderRepository->delete('999'); // Id que não existe
+        $result = $reminderRepository->delete('999'); //Not exists
 
         $this->assertFalse($result);
     }

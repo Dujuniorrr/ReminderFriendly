@@ -2,7 +2,9 @@
 
 use Src\Application\Commands\CreateReminder;
 use Src\Application\Commands\DeleteReminder;
+use Src\Application\Commands\ListCharacters;
 use Src\Application\Commands\ListReminders;
+use Src\Application\Http\Controller\Character\ListCharactersController;
 use Src\Application\Http\Controller\Reminder\CreateReminderController;
 use Src\Application\Http\Controller\Reminder\DeleteReminderController;
 use Src\Application\Http\Controller\Reminder\ListRemindersController;
@@ -10,6 +12,7 @@ use Src\Infra\Connection\PDOConnection;
 use Src\Infra\Enviroment\DotEnvAdapter;
 use Src\Infra\Gateway\OpenAINLPGateway;
 use Src\Infra\Http\Request\CreateReminderValidator;
+use Src\Infra\Http\Request\ListCharactersValidator;
 use Src\Infra\Http\Request\ListRemindersValidator;
 use Src\Infra\Http\Server\GuzzleHTTPClient;
 use Src\Infra\Http\Server\SlimServerAdapter;
@@ -26,9 +29,11 @@ $httpClient = new GuzzleHTTPClient();
 $reminderRepository = new DatabaseReminderRepository($connection);
 $characterRepository = new DatabaseCharacterRepository($connection);
 
-// listar characters
-
-// enviar msg por whatasapp
+$httpServer->register('get', '/api/character', function () use ($characterRepository) {
+    $command = new ListCharacters($characterRepository);
+    $validator = new ListCharactersValidator();
+    return [ new ListCharactersController($command, $validator), 'handle' ];
+});
 
 $httpServer->register('delete', '/api/reminder/{id}', function () use ($reminderRepository) {
     $command = new DeleteReminder($reminderRepository);

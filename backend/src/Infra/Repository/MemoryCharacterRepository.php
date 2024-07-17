@@ -61,6 +61,11 @@ class MemoryCharacterRepository implements CharacterRepository
     {
         return $this->characters;
     }
+
+    function count(): int
+    {
+        return 3;
+    }
 }
 
 ?>

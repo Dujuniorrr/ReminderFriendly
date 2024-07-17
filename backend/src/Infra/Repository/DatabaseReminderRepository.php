@@ -111,7 +111,7 @@ class DatabaseReminderRepository implements ReminderRepository
 
             return (int) $result[0]['total'];
         } catch (Exception $e) {
-            throw new Exception("Error counting reminders: " . $e->getMessage());
+            throw new Exception("Error counting reminders");
         }
     }
 

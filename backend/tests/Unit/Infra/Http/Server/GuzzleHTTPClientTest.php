@@ -19,9 +19,9 @@ class GuzzleHTTPClientTest extends TestCase
         parent::setUp();
 
         $mockHandler = new MockHandler([
-            new Response(200, [], '{"message": "Hello, world!"}'), // Resposta de sucesso
-            new Response(404, [], '{"message": "Not Found"}'),     // Resposta de erro 404
-            new RequestException("Error Communicating with Server", new \GuzzleHttp\Psr7\Request('GET', 'test')) // Exceção de requisição
+            new Response(200, [], '{"message": "Hello, world!"}'), 
+            new Response(404, [], '{"message": "Not Found"}'),    
+            new RequestException("Error Communicating with Server", new \GuzzleHttp\Psr7\Request('GET', 'test'))
         ]);
 
         $handlerStack = HandlerStack::create($mockHandler);
@@ -34,7 +34,7 @@ class GuzzleHTTPClientTest extends TestCase
         $result = $this->httpClient->get('http://example.com');
 
         $this->assertEquals(200, $result['statusCode']);
-        $this->assertJson($result['body']);
+        $this->assertIsArray($result['body']);
     }
 
     public function testPostRequest()
@@ -43,7 +43,7 @@ class GuzzleHTTPClientTest extends TestCase
         $result = $this->httpClient->post('http://example.com', [], $body);
 
         $this->assertEquals(200, $result['statusCode']);
-        $this->assertJson($result['body']);
+        $this->assertIsArray($result['body']);
     }
 
     public function testPutRequest()
@@ -52,7 +52,7 @@ class GuzzleHTTPClientTest extends TestCase
         $result = $this->httpClient->put('http://example.com', [], $body);
 
         $this->assertEquals(200, $result['statusCode']);
-        $this->assertJson($result['body']);
+        $this->assertIsArray($result['body']);
     }
 
     public function testDeleteRequest()
@@ -60,7 +60,7 @@ class GuzzleHTTPClientTest extends TestCase
         $result = $this->httpClient->delete('http://example.com');
 
         $this->assertEquals(200, $result['statusCode']);
-        $this->assertJson($result['body']);
+        $this->assertIsArray($result['body']);
     }
 
 

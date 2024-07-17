@@ -7,7 +7,7 @@ use Src\Application\DTO\ListReminders\ListRemindersOutput;
 use Src\Application\Repository\ReminderRepository;
 
 /**
- * Class ListReminder
+ * Class ListReminders
  * 
  * Command to list a reminder.
  */
@@ -24,9 +24,9 @@ final class ListReminders
     /**
      * Executes the command to create a reminder.
      *
-     * @param ListRemindersInput $input Input data for listing the reminder
+     * @param ListRemindersInput $input Input data for listing reminders
      * 
-     * @return array<array<ListRemindersOutput>|int> Output data after listing the reminder
+     * @return array<array<ListRemindersOutput>|int> Output data of reminders list
      * 
      */
     public function execute(ListRemindersInput $input): array

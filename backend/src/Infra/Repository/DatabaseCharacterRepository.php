@@ -60,6 +60,21 @@ class DatabaseCharacterRepository implements CharacterRepository
         }
     }
 
+    public function count(): int
+    {
+
+        $query = "SELECT COUNT(*) AS total FROM characters";
+
+        try {
+            $result = $this->connection->query($query);
+
+            return (int) $result[0]['total'];
+        } catch (Exception $e) {
+            throw new Exception("Error counting characters");
+        }
+    }
+
+
 
     private function mapToCharacter(array $data): Character
     {
