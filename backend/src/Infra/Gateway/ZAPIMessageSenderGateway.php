@@ -12,8 +12,8 @@ class ZAPIMessageSenderGateway implements MessageSenderGateway
 {
     private HTTPClient $httpClient;
     private string $apiToken;
-    private string $clientToken;
-    private string $apiInstance ;
+    private string $apiClientToken;
+    private string $apiInstance;
     private string $apiUrl;
     private string $phone;
 
@@ -21,12 +21,11 @@ class ZAPIMessageSenderGateway implements MessageSenderGateway
     {
         $this->httpClient = $httpClient;
         $this->apiToken = $env->get('Z_API_TOKEN');
-        $this->clientToken = $env->get('Z_API_CLIENT_TOKEN');
+        $this->apiClientToken = $env->get('Z_API_CLIENT_TOKEN');
         $this->apiInstance = $env->get('Z_API_INSTANCE');
+        $this->phone = $env->get('PHONE');
 
         $this->apiUrl = $this->generateApiUrl();
-
-        $this->phone = $env->get('PHONE');
     }
 
     private function generateApiUrl(): string{
@@ -46,12 +45,12 @@ class ZAPIMessageSenderGateway implements MessageSenderGateway
         }
     }
 
-    private function makeRequest($message)
+    private function makeRequest(string $message)
     {
         $endpoint = 'send-text';
 
         $headers = [
-            'Client-Token' => $this->clientToken,
+            'Client-Token' => $this->apiClientToken,
             'Content-Type' => 'application/json'
         ];
 

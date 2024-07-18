@@ -25,7 +25,7 @@ final class ListCharacters
      * Executes the command to create a character.
      * 
      * @param ListCharactersInput $input Input data for listing characters
-     * @return array<array<ListCharactersOutput>|int> Output data of characters list
+     * @return array<array<ListCharactersOutput>|int> Output data of characters list and total characters count
      * 
      */
     public function execute(ListCharactersInput $input): array

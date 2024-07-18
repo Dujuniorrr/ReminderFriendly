@@ -26,7 +26,7 @@ final class ListReminders
      *
      * @param ListRemindersInput $input Input data for listing reminders
      * 
-     * @return array<array<ListRemindersOutput>|int> Output data of reminders list
+     * @return array<array<ListRemindersOutput>|int> Output data of reminders list and total reminders count
      * 
      */
     public function execute(ListRemindersInput $input): array

@@ -2,7 +2,6 @@
 
 namespace Src\Application\Commands;
 
-use Exception;
 use Src\Application\Exceptions\NotFoundException;
 use Src\Application\Gateways\MessageSenderGateway;
 use Src\Application\Repository\ReminderRepository;
