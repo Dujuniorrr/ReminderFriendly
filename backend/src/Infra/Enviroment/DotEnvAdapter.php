@@ -12,7 +12,7 @@ class DotEnvAdapter implements Env
         $dotenv->load();
     }
     
-    function get(string $key, mixed $default = null): mixed
+    public function get(string $key, mixed $default = null): mixed
     {
         return isset($_ENV[$key]) ? $_ENV[$key] : $default;
     }

@@ -15,17 +15,19 @@
 
 ## Configurações e Uso
 
-<p style="display: flex; justify-content: center ;background: white; border: 10px solid white; border-radius: 10px" align="center"><img src="docs/arch/containers.png" width="600"  alt="Logo Kevi"></p>
+<p style="display: flex; justify-content: center ;background: white; border: 10px solid white; border-radius: 10px" align="center"><img src="docs/arch/containers.png" width="800"  alt="Logo Kevi"></p>
 
 ## Arquitetura e Design de Software
 
-<!-- 
+
 <p align="center" style="display: flex; justify-content: center ;background: white; border: 10px solid white; border-radius: 10px">
-<img src="docs/arch/clean-arch.png"  width="40%" alt="Logo Kevi"> 
-<img src="docs/arch/control-flow.png" width="35%"  alt="Logo Kevi">
-</p> -->
+<img src="docs/arch/hexa-arch.jpg"  alt="Logo Kevi"> 
+
+</p>
 
 ## Funcionalidades
+
+Para visualizar os endpoints da API, acesse a <a href="https://app.swaggerhub.com/apis-docs/DURVALJUNIOR117/FunnyRemindersAPI/1.0.0#/" target="_blank">Documentação no Swagger</a>
 
 ## Melhorias Futuras
 
