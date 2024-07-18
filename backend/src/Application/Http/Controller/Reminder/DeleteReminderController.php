@@ -37,7 +37,7 @@ final class DeleteReminderController extends Controller
             }
 
             return new Response([
-                'message' => 'Not possible delete this Reminder'
+                'error' => 'Not possible delete this Reminder'
             ], 403);
 
         } 

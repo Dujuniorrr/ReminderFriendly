@@ -35,7 +35,7 @@ final class SendReminderController extends Controller
             }
 
             return new Response([
-                'message' => 'Not possible send this Reminder'
+                'error' => 'Not possible send this Reminder'
             ], 403);
 
         } 

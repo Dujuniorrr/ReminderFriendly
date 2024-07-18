@@ -27,6 +27,8 @@
 
 ## Funcionalidades
 
+Para visualizar os endpoints da API, acesse a <a href="https://app.swaggerhub.com/apis-docs/DURVALJUNIOR117/FunnyRemindersAPI/1.0.0#/" target="_blank">Documentação no Swagger</a>
+
 ## Melhorias Futuras
 
 ## Considerações Finais

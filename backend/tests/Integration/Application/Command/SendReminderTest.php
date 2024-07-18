@@ -77,7 +77,7 @@ class SendReminderTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testNotFoundReminder()
+    public function testReminderAlreadySender()
     {
         $this->expectException(Exception::class);
         $reminderId = '141';
@@ -86,7 +86,7 @@ class SendReminderTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testReminderAlreadySender()
+    public function testNotFoundReminder()
     {
         $this->expectException(NotFoundException::class);
         $reminderId = '1223';

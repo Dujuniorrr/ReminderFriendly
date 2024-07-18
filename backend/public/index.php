@@ -22,6 +22,7 @@ use Src\Infra\Http\Server\SlimServerAdapter;
 use Src\Infra\Repository\DatabaseCharacterRepository;
 use Src\Infra\Repository\DatabaseReminderRepository;
 
+
 date_default_timezone_set("America/Sao_Paulo");
 require __DIR__ . '/../vendor/autoload.php';
 
