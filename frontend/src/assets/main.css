@@ -1,3 +1,8 @@
-/* .bg-cover {
-    background-image: url('https://static.vecteezy.com/system/resources/previews/015/497/716/non_2x/blue-comic-background-retro-free-vector.jpg')   !important;
-} */
+.bg-cover {
+    background-image: url('https://static.vecteezy.com/system/resources/previews/015/497/716/non_2x/blue-comic-background-retro-free-vector.jpg') !important;
+}
+
+.main-bg {
+    background: rgb(2, 0, 36);
+    background: linear-gradient(0deg, rgba(2, 0, 36, 0.4920167896260067) 0%, rgba(28, 28, 71, 0.7049019436876314) 63%, rgba(28, 26, 71, 0.6628851369649422) 100%);
+}

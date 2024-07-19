@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS reminders (
     id INT AUTO_INCREMENT PRIMARY KEY,
     originalMessage TEXT NOT NULL,
     processedMessage TEXT NOT NULL,
-    date DATE NOT NULL,
+    date DATETIME NOT NULL,
     characterId INT NOT NULL,
     `send` BOOLEAN DEFAULT 0,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -34,7 +34,7 @@ VALUES
         'Articulate',
         'New York',
         'Funny Hero',
-        'http://localhost:9000/storage/spiderman.jpg',
+        'http://localhost:9000/storage/spiderman.png',
         'blue'
     ),
     (
@@ -46,7 +46,7 @@ VALUES
         'Intimidating',
         'Human', 
         'Dark Lord of the Sith', 
-        'http://localhost:9000/storage/darthvader.jpg',
+        'http://localhost:9000/storage/darthvader.jpeg',
         'black'
     ),
     (
@@ -58,7 +58,7 @@ VALUES
         'Inverted syntax',
         'Galactic Standard',
         'Wise Mentor',
-        'http://localhost:9000/storage/yoda.jpg',
+        'http://localhost:9000/storage/yoda.jpeg',
         'green'
     ),
     (
@@ -70,7 +70,7 @@ VALUES
         'Quick talker',
         'American',
         'Speedster',
-        'http://localhost:9000/storage/flash.jpg',
+        'http://localhost:9000/storage/flash.jpeg',
         'red'
     ),
     (
@@ -82,6 +82,6 @@ VALUES
         'Fluent in over six million forms of communication',
         'British',
         'Loyal Companion',
-        'http://localhost:9000/storage/c3po.jpg',
+        'http://localhost:9000/storage/c3po.jpeg',
         'yellow'
     );
