@@ -31,7 +31,7 @@ final class ListCharacters
     public function execute(ListCharactersInput $input): array
     {
         $characters = $this->characterRepository->list($input->page, $input->limit);
-        
+        $
         $total = $this->characterRepository->count();
 
         $output = array_map(
@@ -46,7 +46,8 @@ final class ListCharacters
                     $character->getSpeechMannerisms(),
                     $character->getAccent(),
                     $character->getArchetype(),
-                    $character->getImagePath()
+                    $character->getImagePath(),
+                    $character->getColor()
                 );
             },
             $characters

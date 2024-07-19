@@ -57,7 +57,8 @@ class SendReminderTest extends TestCase
             'Speech',
             'Accent',
             'Archetype',
-            'ImagePath'
+            'ImagePath',
+            'blue'
         );
 
         $this->reminder = new Reminder(

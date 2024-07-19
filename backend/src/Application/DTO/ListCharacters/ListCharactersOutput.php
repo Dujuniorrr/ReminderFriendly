@@ -22,6 +22,7 @@ class ListCharactersOutput extends BaseDTO
      * @param string $accent The accent of the character 
      * @param string $archetype The archetype of the character 
      * @param string $imagePath The image path of the character 
+     * @param string $color Color representation of the character 
      */
     public function __construct(
         readonly public string $id,
@@ -34,6 +35,7 @@ class ListCharactersOutput extends BaseDTO
         readonly public string $accent,
         readonly public string $archetype,
         readonly public string $imagePath,
+        readonly public string $color,
     ) {
     }
 

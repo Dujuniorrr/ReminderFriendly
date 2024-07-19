@@ -28,6 +28,7 @@ class ListRemindersOutput extends BaseDTO
      * @param string $accent The accent of the character associated with the reminder
      * @param string $archetype The archetype of the character associated with the reminder
      * @param string $imagePath The image path of the character associated with the reminder
+     * @param string $color Color representation of the character 
      */
     public function __construct(
         readonly public string $id,
@@ -46,6 +47,7 @@ class ListRemindersOutput extends BaseDTO
         readonly public string $accent,
         readonly public string $archetype,
         readonly public string $imagePath,
+        readonly public string $color,
     ) {
     }
 
@@ -69,6 +71,7 @@ class ListRemindersOutput extends BaseDTO
                 'accent' => $this->accent,
                 'archetype' => $this->archetype,
                 'imagePath' => $this->imagePath,
+                'color' => $this->color
             ]
         ];
     }

@@ -15,7 +15,8 @@ class Character
         readonly private string $speechMannerisms,
         readonly private string $accent,
         readonly private string $archetype,
-        readonly private string $imagePath
+        readonly private string $imagePath,
+        readonly private string $color
     ) {
     }
 
@@ -29,7 +30,8 @@ class Character
         string $speechMannerisms,
         string $accent,
         string $archetype,
-        string $imagePath
+        string $imagePath,
+        string $color
     ): self {
         $instance = new self(
             $name,
@@ -40,7 +42,8 @@ class Character
             $speechMannerisms,
             $accent,
             $archetype,
-            $imagePath
+            $imagePath,
+            $color
         );
         $instance->id = $id;
         return $instance;
@@ -125,5 +128,13 @@ class Character
     public function getImagePath()
     {
         return $this->imagePath;
+    }
+
+    /**
+     * Get the value of color
+     */
+    public function getColor()
+    {
+        return $this->color;
     }
 }

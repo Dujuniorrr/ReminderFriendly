@@ -29,6 +29,7 @@ class DatabaseReminderRepositoryTest extends TestCase
                 'American',
                 'Anti-hero',
                 '/path/to/image.jpg',
+                'blue'
             ),
             false,
             new DateTime()

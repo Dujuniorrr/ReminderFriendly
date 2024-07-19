@@ -54,7 +54,8 @@ final class ListReminders
                     $reminder->getCharacter()->getSpeechMannerisms(),
                     $reminder->getCharacter()->getAccent(),
                     $reminder->getCharacter()->getArchetype(),
-                    $reminder->getCharacter()->getImagePath()
+                    $reminder->getCharacter()->getImagePath(),
+                    $reminder->getCharacter()->getColor()
                 );
             },
             $reminders

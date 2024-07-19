@@ -179,7 +179,8 @@ class DatabaseReminderRepository implements ReminderRepository
                 $data['speechMannerisms'],
                 $data['accent'],
                 $data['archetype'],
-                $data['imagePath']
+                $data['imagePath'],
+                $data['color']
             ),
             new DateTime($data['createdAt']),
             (bool) $data['send'],

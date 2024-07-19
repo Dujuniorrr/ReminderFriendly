@@ -88,7 +88,8 @@ class DatabaseCharacterRepository implements CharacterRepository
             $data['speechMannerisms'],
             $data['accent'],
             $data['archetype'],
-            $data['imagePath']
+            $data['imagePath'],
+            $data['color'],
         );
     }
 }

@@ -22,7 +22,8 @@ class MemoryCharacterRepository implements CharacterRepository
                 'Analytical',
                 'British',
                 'Investigator',
-                'sherlock.jpg'
+                'sherlock.jpg',
+                'blue'
             ),
             '2' => Character::create(
                 '2',
@@ -34,7 +35,8 @@ class MemoryCharacterRepository implements CharacterRepository
                 'Articulate',
                 'New York',
                 'Funny Hero',
-                'hermione.jpg'
+                'hermione.jpg',
+                'red'
             ),
             '3' => Character::create(
                 '3', 
@@ -46,7 +48,8 @@ class MemoryCharacterRepository implements CharacterRepository
                 'Intimidating',
                 'Human', 
                 'Dark Lord of the Sith', 
-                'darthvader.jpg' 
+                'darthvader.jpg',
+                'black'
             )
             
         ];

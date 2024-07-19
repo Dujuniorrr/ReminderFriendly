@@ -49,7 +49,8 @@ class DeleteReminderTest extends TestCase
             'Speech',
             'Accent',
             'Archetype',
-            'ImagePath'
+            'ImagePath',
+            'blue'
         );
 
         $reminder = new Reminder(
