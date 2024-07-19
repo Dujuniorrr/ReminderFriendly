@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import ListRemindersView from '../views/ListRemindersView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,12 +7,17 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: ListRemindersView
     },
     {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue')
+      path: '/calendario',
+      name: 'calendar',
+      component: () => import('../views/CalendarRemindersView.vue')
+    },
+    {
+      path: '/lembrete/adicionar',
+      name: 'add-reminder',
+      component: () => import('../views/CalendarRemindersView.vue')
     }
   ]
 })

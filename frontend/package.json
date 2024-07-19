@@ -12,10 +12,12 @@
   },
   "dependencies": {
     "vue": "^3.4.29",
-    "vue-router": "^4.3.3"
+    "vue-router": "^4.3.3",
+    "vuetify": "^3.6.13"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.24.7",
+    "@mdi/font": "^7.4.47",
     "@types/jest": "^29.5.12",
     "@vitejs/plugin-vue": "^5.0.5",
     "@vue/test-utils": "^2.4.6",
