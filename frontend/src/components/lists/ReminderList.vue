@@ -1,6 +1,17 @@
 <template>
-  <div>
-    <v-row v-if="reminders.length > 0" class="rounded-lg">
+  <div class="h-100">
+    <div
+      v-if="loading"
+      class="text-center h-100 d-flex justify-center align-center"
+    >
+      <v-progress-circular
+        color="white"
+        indeterminate
+        :size="40"
+        :width="5"
+      ></v-progress-circular>
+    </div>
+    <v-row v-else-if="reminders.length > 0" class="rounded-lg">
       <v-col
         cols="12"
         sm="6"
@@ -8,10 +19,14 @@
         v-for="reminder in reminders"
         :key="reminder.id"
       >
-        <ReminderCard :reminder="reminder" />
+        <ReminderCard
+          @deleteReminder="deleteReminder"
+          @sendReminder="sendReminder"
+          :reminder="reminder"
+        />
       </v-col>
     </v-row>
-    <div v-else>
+    <div class="h-100" v-else>
       <v-empty-state
         class="text-white"
         color="white"
@@ -34,7 +49,7 @@
       </v-empty-state>
     </div>
     <v-pagination
-      v-if="reminders.length > 0"
+      v-if="reminders.length > 0 && !loading"
       bottom
       active-color="primary"
       color="white"
@@ -63,9 +78,13 @@ export default defineComponent({
     };
   },
   created() {
-    this.page = this.pagination.page;
+    this.page = Number.parseInt(this.pagination.page);
   },
   props: {
+    loading: {
+      type: Boolean,
+      required: true,
+    },
     reminders: {
       type: Array,
       required: true,
@@ -85,6 +104,12 @@ export default defineComponent({
     },
   },
   methods: {
+    sendReminder(data: Object) {
+      this.$emit("sendReminder", data);
+    },
+    deleteReminder(data: Object) {
+      this.$emit("deleteReminder", data);
+    },
     openModal() {
       document.getElementById("activator-target").click();
     },

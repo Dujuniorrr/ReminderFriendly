@@ -15,6 +15,7 @@ export default class ListReminders {
                 originalMessage: reminder.getOriginalMessage(),
                 processedMessage: reminder.getProcessedMessage(),
                 date: DatePresenter.present(reminder.getDate().toString()),
+                send: reminder.getSend(),
                 character: {
                     id: reminder.getCharacter().getId(),
                     name: reminder.getCharacter().getName(),
@@ -38,6 +39,7 @@ export type Output = {
     originalMessage: string,
     processedMessage: string,
     date: string,
+    send: boolean,
     character: {
         id: string,
         name: string,

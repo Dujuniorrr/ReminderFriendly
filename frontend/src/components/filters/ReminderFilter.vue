@@ -68,6 +68,9 @@ export default defineComponent({
       items: [6, 9, 12, 24, 36, 48, 60, 72, 84, 96, 100],
     };
   },
+  created() {
+    this.limit = this.modelValue.limit;
+  },
   watch: {
     limit: {
       handler() {
@@ -83,11 +86,17 @@ export default defineComponent({
   },
   methods: {
     updateModel(newValue: string | null | undefined) {
-      const status =
-        typeof newValue == "string" ? newValue : this.modelValue.status;
+      let status = this.modelValue.status;
+      let page = this.modelValue.page;
+      if (typeof newValue == "string") {
+        status = newValue;
+        page = 1;
+      }
+
       this.$emit("update:modelValue", {
         status,
         limit: this.limit,
+        page,
       });
     },
   },

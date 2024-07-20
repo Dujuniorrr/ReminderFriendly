@@ -4,11 +4,18 @@ import Reminder from "../../domain/Reminder";
 export default interface ReminderGateway{
     totalRequisited: number;
     list(page: number, limit: number, status: string): Promise<Reminder[]>;
-    delete(id: string): Promise<boolean>;
-    create(content: string, character: Character): Promise<ResponseError|boolean>;
+    send(id: string): Promise<Response>;
+    delete(id: string): Promise<Response> ;
+    create(content: string, character: Character): Promise<Response>;
 }
 
 export type ResponseError = {
     type: string,
-    errors: String[]
+    errors: String[],
+}
+
+export type Response = {
+    success: boolean,
+    data: any,
+    type: string
 }

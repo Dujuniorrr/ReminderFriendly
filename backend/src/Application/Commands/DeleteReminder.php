@@ -30,6 +30,7 @@ final class DeleteReminder
      */
     public function execute(string $id): bool
     {
+
         $reminder = $this->reminderRepository->find($id);
 
         if(!$reminder){

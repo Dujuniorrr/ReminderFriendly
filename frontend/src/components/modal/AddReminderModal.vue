@@ -1,6 +1,6 @@
 <template>
   <v-btn
-  id="activator-target"
+    id="activator-target"
     position="fixed"
     location="bottom center"
     icon="mdi-plus"
@@ -14,10 +14,10 @@
     activator="#activator-target"
     transition="dialog-bottom-transition"
     fullscreen
-    v-model="dialog"  
+    v-model="dialog"
   >
     <v-card>
-      <v-toolbar class="bg-blue-lighten-1">
+      <v-toolbar class="bg-cover main-bg bg-blue-lighten-1">
         <v-btn icon="mdi-close" @click="dialog = false"></v-btn>
 
         <v-spacer></v-spacer>

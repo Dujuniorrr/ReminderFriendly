@@ -15,5 +15,5 @@ test('must return a list of reminders', async () => {
         status: 'notSend'
     });
 
-    expect(output.length).toBeLessThan(20);
+    expect(output.length).toBeLessThanOrEqual(20);
 });

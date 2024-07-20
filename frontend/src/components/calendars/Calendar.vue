@@ -24,26 +24,25 @@
             dense
             hide-details
           ></v-select>
-      
         </v-sheet>
         <div>
           <v-container>
             <v-row class="fill-height">
-          <v-col>
-            <v-sheet>
-              <v-calendar
-                ref="calendar"
-                style="min-height: 0px !important"
-                v-model="value"
-                :events="events"
-                :view-mode="type"
-                :weekdays="weekday"
-                class="text-primary"
-                :hide-header="true"
-              ></v-calendar>
-            </v-sheet>
-          </v-col>
-        </v-row>
+              <v-col>
+                <v-sheet>
+                  <v-calendar
+                    ref="calendar"
+                    style="min-height: 0px !important"
+                    v-model="value"
+                    :events="events"
+                    :view-mode="type"
+                    :weekdays="weekday"
+                    class="text-primary"
+                    :hide-header="true"
+                  ></v-calendar>
+                </v-sheet>
+              </v-col>
+            </v-row>
           </v-container>
         </div>
       </div>

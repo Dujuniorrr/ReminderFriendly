@@ -1,4 +1,4 @@
-import ReminderGateway, { ResponseError } from "../../application/gateway/ReminderGateway";
+import ReminderGateway, { Response, ResponseError } from "../../application/gateway/ReminderGateway";
 import HttpClient from "../../application/http/HttpClient";
 import Character from "../../domain/Character";
 import Reminder from "../../domain/Reminder";
@@ -18,9 +18,9 @@ export default class APIReminderGateway implements ReminderGateway {
         const response = await this.httpClient.get(`${this.apiUrl}${this.endpoint}`, {
             page, limit, status
         });
-       
-         this.totalRequisited = response.data.total ?? 0;
-         
+
+        this.totalRequisited = response.data.total ?? 0;
+
         let reminders: Reminder[] = [];
         if (response.success) {
             reminders = response.data.reminders.map((reminder: any) => {
@@ -28,7 +28,7 @@ export default class APIReminderGateway implements ReminderGateway {
                     reminder.id,
                     reminder.originalMessage,
                     reminder.processedMessage,
-                    reminder.boolean,
+                    reminder.send,
                     reminder.date,
                     reminder.createdAt,
                     new Character(
@@ -51,11 +51,40 @@ export default class APIReminderGateway implements ReminderGateway {
         return reminders;
     }
 
-    async delete(id: string): Promise<boolean> {
-        throw new Error("Method not implemented.");
+    async delete(id: string): Promise<Response> {
+        const response = await this.httpClient.delete(`${this.apiUrl}${this.endpoint}/${id}`, {});
+
+        if (response.success) return {
+            success: true,
+            data: response.data,
+            type: 'success'
+        };
+
+        return {
+            type: (response.status == 404) ? 'not_found' : 'error',
+            data: response.data,
+            success: false
+        }
     }
 
-    async create(content: string, character: Character): Promise<boolean | ResponseError> {
+    async send(id: string): Promise<Response> {
+        const response = await this.httpClient.put(`${this.apiUrl}${this.endpoint}/${id}/send`, {}, {});
+
+        if (response.success) return {
+            success: true,
+            data: response.data,
+            type: 'success'
+        };
+
+        return {
+            success: false,
+            type: (response.status == 404) ? 'not_found' : 'already_send',
+            data: response.data
+        }
+    }
+
+
+    async create(content: string, character: Character): Promise<Response> {
         throw new Error("Method not implemented.");
     }
 
