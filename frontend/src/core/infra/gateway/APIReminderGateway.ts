@@ -84,8 +84,24 @@ export default class APIReminderGateway implements ReminderGateway {
     }
 
 
-    async create(content: string, character: Character): Promise<Response> {
-        throw new Error("Method not implemented.");
+    async create(content: string, characterId: string): Promise<Response> {
+        const response = await this.httpClient.put(`${this.apiUrl}${this.endpoint}
+        `, {}, {
+            content,
+            characterId
+        });
+
+        if (response.success) return {
+            success: true,
+            data: response.data,
+            type: 'success'
+        };
+ 
+        return {
+            success: false,
+            type: (response.data.content_error) ? 'content_error' : 'error',
+            data: response.data
+        }
     }
 
 }

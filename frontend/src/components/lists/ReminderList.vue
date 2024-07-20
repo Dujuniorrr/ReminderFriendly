@@ -65,7 +65,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, watch } from "vue";
+import { defineComponent } from "vue";
 import ReminderCard from "../cards/ReminderCard.vue";
 
 export default defineComponent({

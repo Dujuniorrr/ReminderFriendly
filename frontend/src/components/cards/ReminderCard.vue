@@ -4,7 +4,7 @@
     :class="`border-${reminder.character.color}`"
     max-width="400 h-100"
   >
-    <v-card-actions :class="`px-0 bg-${reminder.character.color}-lighten-1`">
+    <v-card-actions :class="`px-0 bg-${reminder.character.color}-darken-2`">
       <v-list-item class="w-100">
         <template v-slot:prepend>
           <v-avatar

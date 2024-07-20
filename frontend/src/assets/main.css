@@ -1,14 +1,122 @@
 .bg-cover {
-    background: rgb(255, 255, 255) url('https://static.vecteezy.com/system/resources/previews/015/497/716/non_2x/blue-comic-background-retro-free-vector.jpg') no-repeat center center fixed !important;
+    background: white url('https://static.vecteezy.com/system/resources/previews/015/497/716/non_2x/blue-comic-background-retro-free-vector.jpg') no-repeat center center fixed !important;
     background-repeat: no-repeat !important;
     background-size: cover !important;
 }
 
 .main-bg {
+    background: rgb(2, 0, 36);
     background: linear-gradient(0deg, rgba(2, 0, 36, 0.4920167896260067) 0%, rgba(28, 28, 71, 0.7049019436876314) 63%, rgba(28, 26, 71, 0.6628851369649422) 100%);
 }
 
-/* 
-.main-bg {
-    background: linear-gradient(0deg, rgba(163, 17, 29, 0.492) 0%, rgba(59, 78, 104, 0.705) 63%, rgba(187, 52, 52, 0.663) 100%);
-} */
+.card-bg {
+    background: rgb(2, 0, 36);
+    background: #010e20fd;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 0.8s ease-in-out forwards;
+}
+
+.speech-dialog-comic {
+    z-index: 23;
+    position: absolute;
+    min-width: 320px;
+    max-width: 380px;
+    padding: 10px;
+    left: 300px;
+    top: 20px;
+    text-align: center;
+    background-color: white;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+}
+
+.speech-dialog-comic:after {
+    content: " ";
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 37px;
+    bottom: -14px;
+    border: 12px solid;
+    border-color: white transparent transparent white;
+}
+
+@media (min-width: 0px) {
+    .speech-dialog-comic {
+        left: 30px;
+        top: 10px;
+    }
+
+    .speech-dialog-comic:after {
+        left: 200px;
+    }
+}
+
+@media (min-width: 465px) {
+    .speech-dialog-comic {
+        left: 170px;
+        top: 20px;
+    }
+
+    .speech-dialog-comic:after {
+        left: 170px;
+    }
+}
+
+@media (min-width: 700px) {
+    .speech-dialog-comic {
+        left: 220px;
+        top: 20px;
+    }
+
+    .speech-dialog-comic:after {
+        left: 190px;
+    }
+}
+
+@media (min-width: 850px) {
+    .speech-dialog-comic {
+        left: 260px;
+        top: 20px;
+    }
+
+    .speech-dialog-comic:after {
+        left: 230px;
+    }
+}
+
+@media (min-width: 980px) {
+    .speech-dialog-comic {
+        left: 200px;
+        top: 20px;
+    }
+
+    .speech-dialog-comic:after {
+        left: 37px;
+    }
+}
+
+@media (min-width: 1050px) {
+    .speech-dialog-comic {
+        left: 240px;
+        top: 20px;
+    }
+
+    .speech-dialog-comic:after {
+        left: 37px;
+    }
+}

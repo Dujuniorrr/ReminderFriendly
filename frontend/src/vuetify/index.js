@@ -33,10 +33,15 @@ const vuetify = createVuetify({
         colors: {
           blue: colors.blue.accent4,
           red: colors.red.accent4,
-          green: colors.green.accent4,
+          green: colors.green.darken1,
           yellow: colors.yellow.accent4,
-          // black: colors.black,
-          'black-lighten-1': colors.grey.darken4
+          pink: colors.pink.accent4,
+          purple: colors.purple.accent4,
+          indigo: colors.indigo.accent4,
+          teal: colors.teal.accent4,
+          cyan: colors.cyan.accent4,
+          lime: colors.lime.accent4,
+          'black-darken-2': colors.grey.darken4
         }
       },
     },

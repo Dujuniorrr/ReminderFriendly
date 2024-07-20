@@ -20,7 +20,7 @@
           color="red-darken-1"
           append-icon="mdi-close"
           class="ms-1"
-          variant="flat"
+          :variant="$route.query.status == 'notSend' ? 'flat' : 'outlined'"
           :ripple="false"
           link
         >
@@ -31,7 +31,7 @@
         <v-chip
           @click="updateModel('send')"
           color="blue-darken-1"
-          variant="flat"
+          :variant="$route.query.status == 'send' ? 'flat' : 'outlined'"
           append-icon="mdi-check"
           class="ms-1"
           :ripple="false"

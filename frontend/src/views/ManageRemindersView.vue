@@ -22,6 +22,17 @@
     <ReminderFilter v-model="pagination" />
   </div>
 
+  <v-btn
+    id="activator-target"
+    position="fixed"
+    location="bottom center"
+    icon="mdi-plus"
+    size="x-large"
+    color="white"
+    elevation="8"
+    class="mb-3 text-primary border-md border-primary border-opacity-75"
+  />
+
   <AddReminderModal />
   <SimpleToast :show="toast.show" :message="toast.message" :type="toast.type" />
 </template>
@@ -107,7 +118,11 @@ export default defineComponent({
       this.total = Math.ceil(
         reminderGateway.totalRequisited / this.pagination.limit
       );
+      
+      if(this.reminders.length < 1 && this.total != 0) this.pagination.page = 1;
+      
       setTimeout(() => (this.loadingList = false), 250);
+
     },
     presentResponse(output: Output) {
       if (output.success) this.fetchReminders();

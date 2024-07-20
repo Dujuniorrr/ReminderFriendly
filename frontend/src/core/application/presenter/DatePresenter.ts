@@ -1,4 +1,15 @@
+/**
+ * @export
+ * @class DatePresenter
+ */
 export default class DatePresenter {
+
+    /**
+     * @static
+     * @param {string} date
+     * @return {*} 
+     * @memberof DatePresenter
+     */
     public static present(date: string) {
         const dateObject = new Date(date);
 

@@ -5,6 +5,11 @@ export default class SendReminder {
         private readonly reminderGteway: ReminderGateway
     ) { }
 
+    /**
+     * @param {string} id
+     * @return {*}  {Promise<Output>}
+     * @memberof SendReminder
+     */
     public async execute(id: string): Promise<Output> {
         const response = await this.reminderGteway.send(id);
         switch (response.type) {

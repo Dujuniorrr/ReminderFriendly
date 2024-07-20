@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import HttpClient, { Output } from "../../application/http/HttpClient";
 
 export default class AxiosHttpClient implements HttpClient {
+    
     async delete(url: string, params: any): Promise<Output> {
         try {
             const response = await axios.delete(url, { params });

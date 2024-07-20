@@ -1,10 +1,20 @@
 import ReminderGateway from "../gateway/ReminderGateway";
-
+/**
+ * @export
+ * @class DeleteReminder
+ */
 export default class DeleteReminder {
     constructor(
         private readonly reminderGteway: ReminderGateway
     ) { }
-
+    
+    /**
+     *
+     *
+     * @param {string} id
+     * @return {*}  {Promise<Output>}
+     * @memberof DeleteReminder
+     */
     public async execute(id: string): Promise<Output> {
         const response = await this.reminderGteway.delete(id);
 

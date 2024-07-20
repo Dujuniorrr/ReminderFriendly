@@ -1,10 +1,9 @@
-
 <template>
   <v-app class="bg-cover">
     <v-main class="main-bg">
-      <div class="mx-3 my-3 mx-md-6">
+      <main class="mx-3 my-3 mx-md-6">
         <RouterView />
-      </div>
+      </main>
     </v-main>
   </v-app>
 </template>
