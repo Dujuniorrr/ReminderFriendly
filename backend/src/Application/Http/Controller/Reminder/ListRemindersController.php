@@ -41,7 +41,9 @@ final class ListRemindersController extends Controller
                 new ListRemindersInput($page, $limit, $status
             ));
             
-            $formattedOutput = [];
+            $formattedOutput = [
+                'reminders' => []
+            ];
             foreach($output as $item){
                 $formattedOutput['reminders'][] = $item->toArray();
             }

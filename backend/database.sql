@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS reminders (
     id INT AUTO_INCREMENT PRIMARY KEY,
     originalMessage TEXT NOT NULL,
     processedMessage TEXT NOT NULL,
-    date DATE NOT NULL,
+    date DATETIME NOT NULL,
     characterId INT NOT NULL,
     `send` BOOLEAN DEFAULT 0,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS reminders (
 INSERT INTO characters (name, humor, role, ageVitality, origin, speechMannerisms, accent, archetype, imagePath, color)
 VALUES
     ( 
-        'Spider-Main',
+        'Spider-Man',
         'Intelligent',
         'Hero',
         'Young',
@@ -34,7 +34,7 @@ VALUES
         'Articulate',
         'New York',
         'Funny Hero',
-        'http://localhost:9000/storage/spiderman.jpg',
+        'http://localhost:9000/storage/spiderman.png',
         'blue'
     ),
     (
@@ -46,8 +46,21 @@ VALUES
         'Intimidating',
         'Human', 
         'Dark Lord of the Sith', 
-        'http://localhost:9000/storage/darthvader.jpg',
+        'http://localhost:9000/storage/darthvader.jpeg',
         'black'
+    ),
+      
+    (
+        'Hermione Granger',
+        'Intelligent',
+        'Witch',
+        'Young',
+        'Hogwarts',
+        'Precise and articulate',
+        'British',
+        'Brilliant Student',
+        'http://localhost:9000/storage/hermione.png',
+        'orange'
     ),
     (
         'Yoda',
@@ -58,8 +71,20 @@ VALUES
         'Inverted syntax',
         'Galactic Standard',
         'Wise Mentor',
-        'http://localhost:9000/storage/yoda.jpg',
+        'http://localhost:9000/storage/yoda.jpeg',
         'green'
+    ),
+        (
+        'Wonder Woman',
+        'Courageous',
+        'Warrior Princess',
+        'Adult',
+        'Themyscira',
+        'Confident and authoritative',
+        'Greek',
+        'Heroic Leader',
+        'http://localhost:9000/storage/wonderwoman.png',
+        'red'
     ),
     (
         'The Flash',
@@ -70,7 +95,7 @@ VALUES
         'Quick talker',
         'American',
         'Speedster',
-        'http://localhost:9000/storage/flash.jpg',
+        'http://localhost:9000/storage/flash.jpeg',
         'red'
     ),
     (
@@ -82,6 +107,18 @@ VALUES
         'Fluent in over six million forms of communication',
         'British',
         'Loyal Companion',
-        'http://localhost:9000/storage/c3po.jpg',
+        'http://localhost:9000/storage/c3po.jpeg',
         'yellow'
+    ),
+  (
+        'Spider-Gwen',
+        'Heroic',
+        'Spider Superhero',
+        'Young',
+        'Marvel Universe',
+        'Brave and determined',
+        'American',
+        'Spider Hero',
+        'http://localhost:9000/storage/spidergwen.png',
+        'pink'
     );
