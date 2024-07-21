@@ -16,7 +16,7 @@
       :image="character.imagePath"
       size="200"
     ></v-avatar>
-    <h2 class="my-2" :class="`text-${character.color}`">
+    <h2 class="mt-2" :class="`text-${character.color}`">
       {{ character.name }}
     </h2>
     <p>Hora de anotar um lembrete! {{ getRandomReminder() }}</p>

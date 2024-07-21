@@ -18,7 +18,7 @@
   "include": [
     "src/**/*.ts",
     "src/tests/**/*.ts",
-    "src/tests/**/*.tests.ts", "src/components/__tests__/filters/ReminderFilter.spec.js",
+    "src/tests/**/*.tests.ts", "src/components/__tests__/filters/ReminderFilter.spec.js", "src/vuetify/index.js",
   ],
   "exclude": [
     "node_modules"

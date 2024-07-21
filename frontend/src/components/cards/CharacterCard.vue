@@ -19,12 +19,12 @@
           cover
         >
         </v-img>
-        <h3
+        <h4
           class="py-2 border-t border-t-lg"
           :class="`bg-${character.color}-darken-2`"
         >
           {{ character.name }}
-        </h3>
+        </h4 >
       </v-card>
     </template>
   </v-hover>

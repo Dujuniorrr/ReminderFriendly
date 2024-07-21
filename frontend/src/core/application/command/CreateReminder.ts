@@ -11,7 +11,7 @@ export default class CreateReminder {
     /**
      *
      *
-     * @param {string} id
+     * @param {Input} input
      * @return {*}  {Promise<Output>}
      * @memberof CreateReminder
      */

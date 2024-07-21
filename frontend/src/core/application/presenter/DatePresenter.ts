@@ -7,10 +7,10 @@ export default class DatePresenter {
     /**
      * @static
      * @param {string} date
-     * @return {*} 
+     * @return {string} 
      * @memberof DatePresenter
      */
-    public static present(date: string) {
+    public static present(date: string): string {
         const dateObject = new Date(date);
 
         const day = dateObject.getDate();

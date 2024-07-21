@@ -56,7 +56,16 @@ export default {
   data: () => ({
     show: true,
     type: "month",
-    types: ["month", "day"],
+    types: [
+      {
+        title: "Mês",
+        value: "month",
+      },
+      {
+        title: "Dia",
+        value: "day",
+      },
+    ],
     weekday: [0, 1, 2, 3, 4, 5, 6],
     weekdays: [
       { title: "Sun - Sat", value: [0, 1, 2, 3, 4, 5, 6] },

@@ -46,7 +46,19 @@ describe('APIReminderGateway', () => {
             return mockResponse;
         }
         async post(url: string, params: any, body: any): Promise<Output> {
-            throw new Error('Method not implemented.');
+            if (url.includes('error')) {
+                return {
+                    success: false,
+                    status: 500,
+                    data: {}
+                };
+            }
+            const mockResponse = {
+                success: true,
+                status: 200,
+                data: {},
+            };
+            return mockResponse;
         }
         async delete(url: string, params: any): Promise<Output> {
             if (url.includes('error')) {
@@ -143,7 +155,7 @@ describe('APIReminderGateway', () => {
     });
 
     it('should handle error when creating a reminder', async () => {
-        mockHttpClient.put = async (url: string, params: any, body: any): Promise<Output> => ({
+        mockHttpClient.post = async (url: string, params: any, body: any): Promise<Output> => ({
             success: false,
             status: 400,
             data: { content_error: true }
