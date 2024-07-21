@@ -17,3 +17,19 @@ test('must return a list of reminders', async () => {
 
     expect(output.length).toBeLessThanOrEqual(20);
 });
+
+
+
+test('must return a list of reminders empty', async () => {
+    const httpClient: HttpClient = new AxiosHttpClient();
+    const reminderGteway: ReminderGateway = new APIReminderGateway(httpClient);
+    const listReminders = new ListReminders(reminderGteway);
+
+    const output = await listReminders.execute({
+        page: 10000000000 * 23,
+        limit: 20,
+        status: 'notSend'
+    });
+
+    expect(output.length).toBe(0);
+});
