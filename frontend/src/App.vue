@@ -1,5 +1,6 @@
 <template>
   <v-app class="bg-cover">
+    <SplashOverlay />   
     <v-main class="main-bg">
       <main class="mx-3 my-3 mx-md-6">
         <RouterView />
@@ -11,6 +12,7 @@
 <script setup lang="ts">
 import { defineComponent } from "vue";
 import ReminderCard from "./components/cards/ReminderCard.vue";
+import SplashOverlay from "./components/partials/SplashOverlay.vue";
 </script>
 
  

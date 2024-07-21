@@ -4,7 +4,7 @@
       <v-col cols="12" lg="4" class="pt-0 mt-3">
         <Calendar />
       </v-col>
-      <v-col cols="12" lg="8 rounded-lg" style="min-height: 50vh !important">
+      <v-col cols="12" lg="8" class="rounded-lg" style="min-height: 50vh !important">
         <ReminderList
           @deleteReminder="deleteReminder"
           @sendReminder="sendReminder"
@@ -33,7 +33,7 @@
     class="mb-3 text-primary border-md border-primary border-opacity-75"
   />
 
-  <AddReminderModal />
+  <AddReminderModal @reminderAdded="fetchReminders" />
   <SimpleToast :show="toast.show" :message="toast.message" :type="toast.type" />
 </template>
 

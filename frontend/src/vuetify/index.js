@@ -35,6 +35,7 @@ const vuetify = createVuetify({
           red: colors.red.accent4,
           green: colors.green.darken1,
           yellow: colors.yellow.accent4,
+          orange: colors.orange.accent4,
           pink: colors.pink.accent4,
           purple: colors.purple.accent4,
           indigo: colors.indigo.accent4,

@@ -37,18 +37,20 @@ final class ListCharactersController extends Controller
 
         try {
             list($output, $total) = $this->listCharacters->execute(
-                new ListCharactersInput($page, $limit
-            ));
-            
-            $formattedOutput = [];
-            foreach($output as $item){
+                new ListCharactersInput(
+                    $page,
+                    $limit
+                )
+            );
+
+            $formattedOutput = ['characters' => []];
+            foreach ($output as $item) {
                 $formattedOutput['characters'][] = $item->toArray();
             }
 
-            $paginationData = [ 'total' => $total, 'perPage' => $limit, 'currentPage' => $page ];
-            
-            return new Response(array_merge( $formattedOutput, $paginationData ), 200);
+            $paginationData = ['total' => $total, 'perPage' => $limit, 'currentPage' => $page];
 
+            return new Response(array_merge($formattedOutput, $paginationData), 200);
         } catch (Exception $e) {
             return new Response(['error' => $e->getMessage()], 422);
         }

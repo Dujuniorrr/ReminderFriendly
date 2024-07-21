@@ -85,7 +85,7 @@ export default class APIReminderGateway implements ReminderGateway {
 
 
     async create(content: string, characterId: string): Promise<Response> {
-        const response = await this.httpClient.put(`${this.apiUrl}${this.endpoint}
+        const response = await this.httpClient.post(`${this.apiUrl}${this.endpoint}
         `, {}, {
             content,
             characterId
@@ -99,7 +99,7 @@ export default class APIReminderGateway implements ReminderGateway {
  
         return {
             success: false,
-            type: (response.data.content_error) ? 'content_error' : 'error',
+            type: (response.data?.content_error) ? 'content_error' : 'error',
             data: response.data
         }
     }

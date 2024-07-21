@@ -4,17 +4,21 @@
     @submit.prevent="submit"
     class="bg-white elevation-23 pa-3 pt-5 rounded-lg text-center"
   >
-    <div class="speech-dialog-comic text-blue-darken-4 elevation-6 fade-in">
-      Ei, amigão da vizinhança aqui! Parece que você se esqueceu de me dizer
-      qual é a tarefa. Sem uma tarefa clara, até mesmo o Spider-Main fica
-      perdido! 🕷️😅
+    <div
+      v-if="content_message"
+      class="speech-dialog-comic text-blue-darken-4 elevation-6 fade-in"
+    >
+      {{ content_message }}
     </div>
     <v-avatar
-      class="border-lg border-primary border-opacity-100"
-      image="question-mark.png"
+      class="border-lg border-opacity-100"
+      :class="`border-${character.color}`"
+      :image="character.imagePath"
       size="200"
     ></v-avatar>
-    <h2 class="my-2 text-primary">Escolha um personagem!</h2>
+    <h2 class="my-2" :class="`text-${character.color}`">
+      {{ character.name }}
+    </h2>
     <p>Hora de anotar um lembrete! {{ getRandomReminder() }}</p>
     <div class="text-start">
       <v-text-field
@@ -24,11 +28,17 @@
         counter="200"
         bg-color="light-blue-lighten-5"
         color="primary "
-        class="mt-2 mb-3 text-primary"
+        class="my-2 text-primary"
         variant="outlined"
       ></v-text-field>
     </div>
-    <v-btn type="submit" rounded color="primary" prepend-icon="mdi-check">
+    <v-btn
+      :loading="loading"
+      type="submit"
+      rounded
+      color="primary"
+      prepend-icon="mdi-check"
+    >
       Adicionar lembrete!
     </v-btn>
   </v-form>
@@ -41,6 +51,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   data() {
     return {
+      reminderSelected: undefined,
       content: "",
       rules: [
         (reminderContent: string) => {
@@ -66,16 +77,32 @@ export default defineComponent({
       ],
     };
   },
+  props: {
+    content_message: {
+      type: String,
+      required: true,
+    },
+    loading: {
+      type: Boolean,
+      required: true,
+    },
+    character: {
+      type: Object,
+      required: true,
+    },
+  },
   methods: {
     async submit() {
       const { valid } = await this.$refs.form.validate();
-
-      if (valid) alert("Form is valid");
-      this.$emit("submitedForm", { content: this.content });
+      this.$emit("submitedForm", { content: this.content, valid });
     },
     getRandomReminder(): string {
-      const randomIndex = Math.floor(Math.random() * this.reminders.length);
-      return this.reminders[randomIndex];
+      if (!this.reminderSelected) {
+        this.reminderSelected = Math.floor(
+          Math.random() * this.reminders.length
+        );
+      }
+      return this.reminders[this.reminderSelected];
     },
   },
 });
