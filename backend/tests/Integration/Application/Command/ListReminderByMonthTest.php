@@ -8,11 +8,12 @@ use Src\Application\Enviroment\Env;
 use Src\Infra\Connection\PDOConnection;
 use Src\Infra\Enviroment\DotEnvAdapter;
 use Src\Application\Commands\ListReminders;
+use Src\Application\Commands\ListRemindersByMonth;
 use Src\Infra\Repository\DatabaseReminderRepository;
 use Src\Application\DTO\ListReminders\ListRemindersInput;
 use Src\Application\DTO\ListReminders\ListRemindersOutput;
 
-class ListReminderTest extends TestCase
+class ListReminderByMonthTest extends TestCase
 {
     private Env $fakeEnv;
 
@@ -33,15 +34,14 @@ class ListReminderTest extends TestCase
         $connection = new PDOConnection($this->fakeEnv);
         $reminderRepository = new DatabaseReminderRepository($connection);
 
-        $command = new ListReminders($reminderRepository);
+        $command = new ListRemindersByMonth($reminderRepository);
 
-        $input = new ListRemindersInput(1, 20, 'notSend');
 
-        list($output, $total) = $command->execute($input);
+        list($output, $total) = $command->execute(date('n'), date('Y'));
 
         $this->assertIsArray($output);
 
-        $this->assertLessThanOrEqual(20, count($output));
+        $this->assertNotEmpty($output);
 
         foreach ($output as $item) {
             $this->assertInstanceOf(ListRemindersOutput::class, $item);
@@ -66,14 +66,13 @@ class ListReminderTest extends TestCase
 
     public function testFailedListOfReminders()
     {
-        $this->expectException(Exception::class);
         $connection = new PDOConnection($this->fakeEnv);
         $reminderRepository = new DatabaseReminderRepository($connection);
 
-        $command = new ListReminders($reminderRepository);
+        $command = new ListRemindersByMonth($reminderRepository);
 
-        $input = new ListRemindersInput(1, 20, 'sjsdj');
-
-        $command->execute($input);
+        list($output, $total) = $command->execute(13, 2024);
+        $this->assertEquals($total, 0);
+        $this->assertCount(0, $output);
     }
 }

@@ -3,13 +3,13 @@ import ReminderGateway from "../gateway/ReminderGateway";
 import DatePresenter from "../presenter/DatePresenter";
 /**
  * @export
- * @class ListReminders
+ * @class ListRemindersByMonth
  */
-export default class ListReminders {
+export default class ListRemindersByMonth {
     /**
-     * Creates an instance of ListReminders.
+     * Creates an instance of ListRemindersByMonth.
      * @param {ReminderGateway} reminderGateway
-     * @memberof ListReminders
+     * @memberof ListRemindersByMonth
      */
     constructor(
         private readonly reminderGateway: ReminderGateway
@@ -18,16 +18,16 @@ export default class ListReminders {
     /**
      * @param {Input} input
      * @return {*}  {Promise<Output[]>}
-     * @memberof ListReminders
+     * @memberof ListRemindersByMonth
      */
     public async execute(input: Input): Promise<Output[]> {
-        const reminders: Reminder[] = await this.reminderGateway.list(input.page, input.limit, input.status);
+        const reminders: Reminder[] = await this.reminderGateway.listByMonth(input.month, input.year);
         const output: Output[] = reminders.map((reminder: Reminder) => {
             return {
                 id: reminder.getId(),
                 originalMessage: reminder.getOriginalMessage(),
                 processedMessage: reminder.getProcessedMessage(),
-                date: DatePresenter.present(reminder.getDate().toString()),
+                date: reminder.getDate().toString(),
                 send: reminder.getSend(),
                 character: {
                     id: reminder.getCharacter().getId(),
@@ -42,9 +42,8 @@ export default class ListReminders {
 }
 
 type Input = {
-    page: number,
-    limit: number,
-    status: string
+    year: number,
+    month: number,
 }
 
 export type Output = {

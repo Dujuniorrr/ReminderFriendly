@@ -16,7 +16,7 @@ describe('SendReminder', () => {
     });
 
     test('should successfully send a reminder', async () => {
-        const output: Output = await sendReminder.execute('11');
+        const output: Output = await sendReminder.execute('7');
 
         expect(output.success).toBe(true);
         expect(output.message).toBe('Lembrete enviado');

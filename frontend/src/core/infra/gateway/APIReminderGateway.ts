@@ -14,6 +14,41 @@ export default class APIReminderGateway implements ReminderGateway {
     ) {
     }
 
+    async listByMonth(month: number, year: number): Promise<Reminder[]> {
+        const response = await this.httpClient.get(`${this.apiUrl}${this.endpoint}/by-month/${month}/${year}`, {});
+
+        this.totalRequisited = response.data.total ?? 0;
+
+        let reminders: Reminder[] = [];
+        if (response.success) {
+            reminders = response.data.reminders.map((reminder: any) => {
+                return new Reminder(
+                    reminder.id,
+                    reminder.originalMessage,
+                    reminder.processedMessage,
+                    reminder.send,
+                    reminder.date,
+                    reminder.createdAt,
+                    new Character(
+                        reminder.character.id,
+                        reminder.character.name,
+                        reminder.character.humor,
+                        reminder.character.role,
+                        reminder.character.ageVitality,
+                        reminder.character.origin,
+                        reminder.character.speechMannerisms,
+                        reminder.character.accent,
+                        reminder.character.archetype,
+                        reminder.character.imagePath,
+                        reminder.character.color,
+
+                    )
+                )
+            });
+        }
+        return reminders;
+    }
+
     async list(page: number, limit: number, status: string): Promise<Reminder[]> {
         const response = await this.httpClient.get(`${this.apiUrl}${this.endpoint}`, {
             page, limit, status
@@ -96,7 +131,7 @@ export default class APIReminderGateway implements ReminderGateway {
             data: response.data,
             type: 'success'
         };
- 
+
         return {
             success: false,
             type: (response.data?.content_error) ? 'content_error' : 'error',

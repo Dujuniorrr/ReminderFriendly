@@ -28,6 +28,7 @@ class ZAPIMessageSenderGatewayTest extends TestCase
             '',
             '',
             '',
+            '',
             ''
          )
        );

@@ -117,6 +117,31 @@ class DatabaseReminderRepository implements ReminderRepository
         }
     }
 
+    public function listByMonth(int $month, int $year): array
+    {
+
+        $query = "SELECT *, reminders.id AS reminderId
+                  FROM reminders INNER JOIN characters
+                  ON characters.id = reminders.characterId 
+                  WHERE MONTH(reminders.date) = ? AND YEAR(reminders.date) = ? AND reminders.send = ?
+                  ORDER BY reminders.date ASC";
+
+        $params = [$month, $year, 0 ];
+
+        try {
+            $results = $this->connection->query($query, $params);
+            $reminders = [];
+
+            foreach ($results as $reminderData) {
+                $reminders[] = $this->mapToReminder($reminderData);
+            }
+
+            return $reminders;
+        } catch (Exception $e) {
+            throw new Exception("Error listing reminders" . $e->getMessage());
+        }
+    }
+
     public function count(string $status = 'send'): int
     {
         if (!isset($this->reminderStatus[$status])) {
@@ -152,7 +177,7 @@ class DatabaseReminderRepository implements ReminderRepository
             $result = $this->connection->query($query, $params);
 
             if (empty($result)) {
-                return null; 
+                return null;
             }
 
             return $this->mapToReminder($result[0]);

@@ -10,21 +10,19 @@
       absolute
       offset
     ></v-fab>
-
-    <v-expand-transition class="mt-4">
-      <div v-show="show">
-        <v-sheet class="d-flex" height="54" tile>
-          <v-select
-            v-model="type"
-            :items="types"
-            class="ma-2"
-            label="Modo de Visualização"
-            color="primary"
-            variant="outlined"
-            dense
-            hide-details
-          ></v-select>
-        </v-sheet>
+    <v-fab
+      class="ms-4 d-none d-lg-flex"
+      location="bottom center"
+      size="x-small"
+      elevation="0"
+      :icon="fullScreen ? 'mdi-chevron-left' : 'mdi-chevron-right'"
+      @click="$emit('allscreenCalendar')"
+      absolute
+      offset
+    ></v-fab>
+    <v-expand-transition >
+      <div v-show="show" class="mt-3">
+     
         <div>
           <v-container>
             <v-row class="fill-height">
@@ -32,13 +30,13 @@
                 <v-sheet>
                   <v-calendar
                     ref="calendar"
-                    style="min-height: 0px !important"
-                    v-model="value"
+                    v-model="date"
                     :events="events"
                     :view-mode="type"
                     :weekdays="weekday"
                     class="text-primary"
                     :hide-header="true"
+                    :year="year"
                   ></v-calendar>
                 </v-sheet>
               </v-col>
@@ -49,11 +47,31 @@
     </v-expand-transition>
   </div>
 </template>
-<script>
+<script lang="ts">
 import { useDate } from "vuetify";
 
+import HttpClient from "../../core/application/http/HttpClient";
+import AxiosHttpClient from "../../core/infra/http/AxiosHttpClient";
+import ReminderGateway from "../../core/application/gateway/ReminderGateway";
+import APIReminderGateway from "../../core/infra/gateway/APIReminderGateway";
+import ListRemindersByMonth from "../../core/application/command/ListRemindersByMonth";
+
+const httpClient: HttpClient = new AxiosHttpClient();
+const reminderGateway: ReminderGateway = new APIReminderGateway(httpClient);
+const listRemindersByMonth = new ListRemindersByMonth(reminderGateway);
+
+const currentDate = new Date();
+const currentMonth = currentDate.getMonth() + 1;
+const currentYear = currentDate.getFullYear();
 export default {
+  props: {
+    fullScreen: {
+      type: Boolean,
+      default: false
+    }
+  },
   data: () => ({
+    year: currentYear,
     show: true,
     type: "month",
     types: [
@@ -67,33 +85,8 @@ export default {
       },
     ],
     weekday: [0, 1, 2, 3, 4, 5, 6],
-    weekdays: [
-      { title: "Sun - Sat", value: [0, 1, 2, 3, 4, 5, 6] },
-      { title: "Mon - Sun", value: [1, 2, 3, 4, 5, 6, 0] },
-      { title: "Mon - Fri", value: [1, 2, 3, 4, 5] },
-      { title: "Mon, Wed, Fri", value: [1, 3, 5] },
-    ],
-    value: [new Date()],
     events: [],
-    colors: [
-      "blue",
-      "indigo",
-      "deep-purple",
-      "cyan",
-      "green",
-      "orange",
-      "grey darken-1",
-    ],
-    titles: [
-      "Meeting",
-      "Holiday",
-      "PTO",
-      "Travel",
-      "Event",
-      "Birthday",
-      "Conference",
-      "Party",
-    ],
+    date: [new Date()],
   }),
   mounted() {
     const adapter = useDate();
@@ -103,32 +96,37 @@ export default {
     });
   },
   methods: {
-    getEvents({ start, end }) {
-      // const events = [];
-      // const min = start;
-      // const max = end;
-      // const days = (max.getTime() - min.getTime()) / 86400000;
-      // const eventCount = this.rnd(days, days + 20);
-      // for (let i = 0; i < eventCount; i++) {
-      //   const allDay = this.rnd(0, 3) === 0;
-      //   const firstTimestamp = this.rnd(min.getTime(), max.getTime());
-      //   const first = new Date(firstTimestamp - (firstTimestamp % 900000));
-      //   const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000;
-      //   const second = new Date(first.getTime() + secondTimestamp);
-      //   events.push({
-      //     title: this.titles[this.rnd(0, this.titles.length - 1)],
-      //     start: first,
-      //     end: second,
-      //     color: this.colors[this.rnd(0, this.colors.length - 1)],
-      //     allDay: !allDay,
-      //   });
-      // }
-      // this.events = events;
+    async getEvents({ start, end }) {
+      const events = [];
+
+      const reminders = await listRemindersByMonth.execute({
+        month: currentMonth,
+        year: currentYear,
+      });
+
+      for (const reminder of reminders) {
+        const allDay = false;
+
+        const reminderDate = reminder.date;
+
+        const first = new Date(reminderDate);
+
+        const second = new Date(first);
+
+        second.setMinutes(first.getMinutes() + 15);
+
+        events.push({
+          title: reminder.originalMessage,
+          start: first,
+          end: second,
+          color: reminder.character.color,
+          allDay: allDay,
+        });
+      }
+      this.events = events;
     },
-    getEventColor(event) {
-      return event.color;
-    },
-    rnd(a, b) {
+  
+    rnd(a: number, b: number) {
       return Math.floor((b - a + 1) * Math.random()) + a;
     },
   },

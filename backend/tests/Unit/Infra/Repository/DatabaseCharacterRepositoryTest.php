@@ -37,6 +37,7 @@ class DatabaseCharacterRepositoryTest extends TestCase
                         'accent' => 'American',
                         'archetype' => 'Anti-hero',
                         'imagePath' => '/path/to/image.jpg',
+                        'color' => 'blue'
                     ]
                 ];
             }
@@ -44,7 +45,7 @@ class DatabaseCharacterRepositoryTest extends TestCase
 
         $characterRepository = new DatabaseCharacterRepository($connection);
 
-        $character = $characterRepository->find('1');
+        $character = $characterRepository->find('3');
 
         $this->assertInstanceOf(Character::class, $character);
         $this->assertEquals('John Doe', $character->getName());
@@ -98,6 +99,7 @@ class DatabaseCharacterRepositoryTest extends TestCase
                         'accent' => 'American',
                         'archetype' => 'Anti-hero',
                         'imagePath' => '/path/to/image.jpg',
+                        'color' => 'blue',
                     ],
                     [
                         'id' => '2',
@@ -110,6 +112,7 @@ class DatabaseCharacterRepositoryTest extends TestCase
                         'accent' => 'British',
                         'archetype' => 'Investigator',
                         'imagePath' => '/path/to/image.jpg',
+                        'color' => 'blue',
                     ],
                 ];
             }

@@ -31,7 +31,7 @@ class CreateReminderTest extends TestCase
             "1"
         ));
 
-        $this->assertEquals("2024-07-18 15:00:00", $output->date);
+        $this->assertEquals("2024-07-25 15:00:00", $output->date);
         $this->assertIsString($output->processedMessage);
         $this->assertEquals(false, $output->send);
         $this->assertEquals("1", $output->characterId);

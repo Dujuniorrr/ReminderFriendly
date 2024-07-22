@@ -5,7 +5,7 @@ import ReminderGateway from "../gateway/ReminderGateway";
  */
 export default class CreateReminder {
     constructor(
-        private readonly reminderGteway: ReminderGateway
+        private readonly reminderGateway: ReminderGateway
     ) { }
 
     /**
@@ -16,7 +16,7 @@ export default class CreateReminder {
      * @memberof CreateReminder
      */
     public async execute(input: Input): Promise<Output> {
-        const response = await this.reminderGteway.create(input.content, input.characterId);
+        const response = await this.reminderGateway.create(input.content, input.characterId);
 
         switch (response.type) {
             case 'success':

@@ -40,7 +40,6 @@ describe('CreateReminder Integration Test', () => {
 
         const output = await createReminder.execute(input);
 
-        console.log(output.content_error)
         expect(output.content_error).toEqual(true);
     });
 

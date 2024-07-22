@@ -50,14 +50,14 @@ class CreateReminderControllerTest extends TestCase
     {
         $params = [];
         $body = [
-            'content' => 'Viajar dia 23 deste mês as 23',
+            'content' => 'Fazer uma viajem no dia 29 deste mês as 23',
             'characterId' => '1', 
         ];
 
         $response = $this->controller->handle($params, $body);
         $this->assertEquals(200, $response->status);
         $this->assertIsArray($response->data);
-        $this->assertEquals('2024-07-23 23:00:00', $response->data['date']);
+        $this->assertEquals('2024-07-29 23:00:00', $response->data['date']);
         $this->assertArrayHasKey('id', $response->data);
     }
 

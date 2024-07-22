@@ -23,6 +23,15 @@ export default interface ReminderGateway {
     list(page: number, limit: number, status: string): Promise<Reminder[]>;
 
     /**
+   * @param {number} month
+   * @param {number} year
+   * @return {*}  {Promise<Reminder[]>}
+   * @memberof ReminderGateway
+   */
+
+    listByMonth(month: number, year: number): Promise<Reminder[]>;
+
+    /**
      * @param {string} id
      * @return {*}  {Promise<Response>}
      * @memberof ReminderGateway
