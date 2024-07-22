@@ -2,6 +2,8 @@
 
 namespace Src\Domain;
 
+use DomainException;
+
 class Character
 {
     private string $id;
@@ -18,6 +20,16 @@ class Character
         readonly private string $imagePath,
         readonly private string $color
     ) {
+        if (empty($this->name)) throw new DomainException('Character name is required!');
+        if (empty($this->humor)) throw new DomainException('Character humor is required!');
+        if (empty($this->role)) throw new DomainException('Character role is required!');
+        if (empty($this->ageVitality)) throw new DomainException('Character ageVitality is required!');
+        if (empty($this->origin)) throw new DomainException('Character origin is required!');
+        if (empty($this->speechMannerisms)) throw new DomainException('Character speechMannerisms is required!');
+        if (empty($this->accent)) throw new DomainException('Character accent is required!');
+        if (empty($this->archetype)) throw new DomainException('Character archetype is required!');
+        if (empty($this->imagePath)) throw new DomainException('Character imagePath is required!');
+        if (empty($this->color)) throw new DomainException('Character color is required!');
     }
 
     static function create(

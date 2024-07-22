@@ -20,7 +20,7 @@ export default interface ReminderGateway {
      * @memberof ReminderGateway
      */
 
-    list(page: number, limit: number, status: string): Promise<Reminder[]>;
+    list(page: number, limit: number, status: string, search: string|null): Promise<Reminder[]>;
 
     /**
    * @param {number} month

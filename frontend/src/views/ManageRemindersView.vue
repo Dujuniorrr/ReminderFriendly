@@ -2,10 +2,19 @@
   <v-col class="mb-10">
     <v-row>
       <v-col cols="12" :lg="!allscreenCalendar ? 4 : 12" class="pt-0 mt-3">
-        <Calendar :fullScreen="allscreenCalendar" @allscreenCalendar="onAllscreenCalendar" />
+        <Calendar
+          :fullScreen="allscreenCalendar"
+          @allscreenCalendar="onAllscreenCalendar"
+        />
       </v-col>
-      <v-col cols="12" :lg="!allscreenCalendar ? 8 : 12" class="rounded-lg" style="min-height: 50vh !important">
+      <v-col
+        cols="12"
+        :lg="!allscreenCalendar ? 8 : 12"
+        class="rounded-lg"
+        style="min-height: 50vh !important"
+      >
         <ReminderList
+          @searchReminder="searchReminders"
           @deleteReminder="deleteReminder"
           @sendReminder="sendReminder"
           :loading="loadingList"
@@ -79,6 +88,7 @@ export default defineComponent({
         page: 1,
         limit: 9,
         status: "notSend",
+        search: null,
       },
       toast: {
         show: false,
@@ -101,12 +111,17 @@ export default defineComponent({
     this.pagination.page = this.$route.query.page ?? this.pagination.page;
     this.pagination.limit = this.$route.query.limit ?? this.pagination.limit;
     this.pagination.status = this.$route.query.status ?? this.pagination.status;
+    this.pagination.search = this.$route.query.search ?? null;
     this.fetchReminders();
   },
   methods: {
-    onAllscreenCalendar(){
+    searchReminders(data: Object) {
+      this.pagination.search = data["val"];
+      this.fetchReminders();
+    },
+    onAllscreenCalendar() {
       this.allscreenCalendar = !this.allscreenCalendar;
-    },  
+    },
     async sendReminder(data: Object) {
       const output = await sendReminder.execute(data["id"]);
       this.presentResponse(output);
@@ -122,11 +137,11 @@ export default defineComponent({
       this.total = Math.ceil(
         reminderGateway.totalRequisited / this.pagination.limit
       );
-      
-      if(this.reminders.length < 1 && this.total != 0) this.pagination.page = 1;
-      
-      setTimeout(() => (this.loadingList = false), 250);
 
+      if (this.reminders.length < 1 && this.total != 0)
+        this.pagination.page = 1;
+
+      setTimeout(() => (this.loadingList = false), 250);
     },
     presentResponse(output: Output) {
       if (output.success) this.fetchReminders();

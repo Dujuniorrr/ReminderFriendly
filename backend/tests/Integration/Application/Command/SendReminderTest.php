@@ -3,6 +3,7 @@
 namespace Tests\Integration\Application\Command;
 
 use DateTime;
+use DomainException;
 use Exception;
 use PHPUnit\Framework\TestCase;
 use Src\Application\Commands\SendReminder;
@@ -80,7 +81,7 @@ class SendReminderTest extends TestCase
 
     public function testReminderAlreadySender()
     {
-        $this->expectException(Exception::class);
+        $this->expectException(DomainException::class);
         $reminderId = '141';
 
         $result = $this->sendReminder->execute($reminderId);

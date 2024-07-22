@@ -18,11 +18,13 @@ class ListRemindersInput extends BaseDTO
      * @param int $page Current page
      * @param int $limit Limit of reminders 
      * @param string $status Status of reminder
+     * @param string $search Search of reminder
      */
     public function __construct(
         readonly public int $page,
         readonly public int $limit,
         readonly public string $status,
+        readonly public ?string $search,
 
     ) {
     }

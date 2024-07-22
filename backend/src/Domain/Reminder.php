@@ -3,7 +3,7 @@
 namespace Src\Domain;
 
 use DateTime;
-use Exception;
+use DomainException;
 
 class Reminder
 {
@@ -17,6 +17,9 @@ class Reminder
         readonly private DateTime $date,
         readonly private Character $character
     ) {
+        if (empty($this->originalMessage)) throw new DomainException('Reminder message is required!');
+        if (empty($this->originalMessage)) throw new DomainException('Reminder processed message is required!');
+
         $this->send = false;
         $this->createdAt = new DateTime('now');
     }
@@ -50,7 +53,7 @@ class Reminder
      */
     public function send()
     {
-        if ($this->send) throw new Exception('The reminder is already send');
+        if ($this->send) throw new DomainException('The reminder is already send');
         $this->send = true;
     }
 

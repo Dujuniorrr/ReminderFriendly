@@ -21,7 +21,7 @@ export default class ListReminders {
      * @memberof ListReminders
      */
     public async execute(input: Input): Promise<Output[]> {
-        const reminders: Reminder[] = await this.reminderGateway.list(input.page, input.limit, input.status);
+        const reminders: Reminder[] = await this.reminderGateway.list(input.page, input.limit, input.status, input.search);
         const output: Output[] = reminders.map((reminder: Reminder) => {
             return {
                 id: reminder.getId(),
@@ -44,7 +44,8 @@ export default class ListReminders {
 type Input = {
     page: number,
     limit: number,
-    status: string
+    status: string,
+    search: string|null,
 }
 
 export type Output = {

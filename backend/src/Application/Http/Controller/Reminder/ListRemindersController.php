@@ -35,10 +35,11 @@ final class ListRemindersController extends Controller
         $page = isset($params['page']) ? $params['page'] : 1;
         $limit = isset($params['limit']) ? $params['limit'] : 20;
         $status = isset($params['status']) ? $params['status'] : 'notSend';
+        $search = isset($params['search']) ? $params['search'] : null;
 
         try {
             list($output, $total) = $this->listReminders->execute(
-                new ListRemindersInput($page, $limit, $status
+                new ListRemindersInput($page, $limit, $status, $search
             ));
             
             $formattedOutput = [

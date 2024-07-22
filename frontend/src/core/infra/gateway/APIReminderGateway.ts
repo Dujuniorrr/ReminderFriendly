@@ -49,9 +49,9 @@ export default class APIReminderGateway implements ReminderGateway {
         return reminders;
     }
 
-    async list(page: number, limit: number, status: string): Promise<Reminder[]> {
+    async list(page: number, limit: number, status: string, search: string|null = null): Promise<Reminder[]> {
         const response = await this.httpClient.get(`${this.apiUrl}${this.endpoint}`, {
-            page, limit, status
+            page, limit, status, search
         });
 
         this.totalRequisited = response.data.total ?? 0;

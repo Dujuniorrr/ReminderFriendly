@@ -78,7 +78,7 @@ class OpenAINLPGateway implements NLPGateway
     
             A chave 'msg' deve conter um texto que se trata da sua imitação do personagem {$character->getName()}. Este texto será uma alteração bem humorada do seguinte lembrete: '{$message}', com proposito de lembrar o individuo que o escreveu de sua tarefa. Porém, diferente do lembrete original, o texto não deve mencionar o período, data ou hora da tarefa. Certifique-se de incluir o humor característico do personagem, fazendo comentários ou piadas que se adequem à sua personalidade. Use emojis e tente relacionar o texto com a personalidade do personagem o máximo possível. O objetivo é criar um lembrete que seja memorável e adequado à situação.     Além disso, a chave 'date' deve conter um DateTime com o valor sugerido no texto do lembrete. Hoje é {$formattedDate}, interprete o lembrete e adicione o valor da data em 'date'.PORÉM, caso o data OU horário não seja informada retorne o json de erro informado.
     
-            A data e o que será lembrado devem ser entedíveis no lembrete original, sendo que a data não pode ser referente ao passado. Caso QUALQUER uma das regras citadas não seja seguida, retorne um JSON com chave 'error' e o valor deve ser uma frase do personagem informando qual dos três dados não compreendeu, utilizando o mesmo humor e personalidade de {$character->getName()}. JAMAIS suponha algo a ser lembrado ou horario, caso não haja um dos dois no lembrete original, retorne o json com erro indicando o que está faltando no lembrete, é essencial ter um lembrete com estas duas informações claras, então informe ao individuo seus erros, caso haja.
+            A data e horario e o que será lembrado devem ser entedíveis no lembrete original, sendo que a data não pode ser referente ao passado. Caso QUALQUER uma das regras citadas não seja seguida, retorne um JSON com chave 'error' e o valor deve ser uma frase do personagem informando qual dos três dados não compreendeu, utilizando o mesmo humor e personalidade de {$character->getName()}. JAMAIS suponha algo a ser lembrado ou horario, caso não haja um dos dois no lembrete original, retorne o json com erro indicando o que está faltando no lembrete, é essencial ter um lembrete com estas duas informações claras, então informe ao individuo seus erros, caso haja.
 
             Para entender melhor o personagem, aqui vão algumas informações:
             - Nome: {$character->getName()}
@@ -89,7 +89,7 @@ class OpenAINLPGateway implements NLPGateway
             - Sotaque: {$character->getAccent()}
             - Arquétipo: {$character->getArchetype()}
             
-            Lembre-se de escrever o texto no idioma pt-br, lembre a pessoa do lembrete que foi criado, não faça em um idiona diferente, mesmo que o personagem tenha outra nacionalidade! 
+            Lembre-se de escrever o texto sempre no idioma pt-br, ele deve ser curto. Lembre a pessoa do lembrete que foi criado! 
                 
             Siga todas as intruções fielmente, não realize suposições.
             ";

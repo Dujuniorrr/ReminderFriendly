@@ -1,8 +1,23 @@
 <template>
   <div class="h-100">
+    <div>
+        <v-text-field
+          @input="searchReminder"
+          density="comfortable"
+          placeholder="Pesquise um lembrete!"
+          prepend-inner-icon="mdi-magnify"
+          style="max-width: 350px"
+          variant="solo"
+          base-color="primary"
+          auto-select-first
+          item-props
+          rounded
+        ></v-text-field>
+    </div>
+
     <div
       v-if="loading"
-      class="text-center h-100 d-flex justify-center align-center"
+      class="text-center d-flex justify-center align-top pa-10"
     >
       <v-progress-circular
         color="white"
@@ -26,7 +41,7 @@
         />
       </v-col>
     </v-row>
-    <div class="h-100" v-else>
+    <div v-else>
       <v-empty-state
         class="text-white"
         color="white"
@@ -75,6 +90,7 @@ export default defineComponent({
   data() {
     return {
       page: 1,
+      timeout: () => {},
     };
   },
   created() {
@@ -104,6 +120,13 @@ export default defineComponent({
     },
   },
   methods: {
+    searchReminder(event: any) {
+      clearTimeout(this.timeout);
+
+      this.timeout = setTimeout(() => {
+        this.$emit("searchReminder", { val: event.target.value });
+      }, 1000);
+    },
     sendReminder(data: Object) {
       this.$emit("sendReminder", data);
     },

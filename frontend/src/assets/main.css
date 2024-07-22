@@ -1,6 +1,6 @@
 .bg-cover {
-    background: white url('https://static.vecteezy.com/system/resources/previews/015/497/716/non_2x/blue-comic-background-retro-free-vector.jpg') no-repeat center center fixed !important;
-    background-repeat: no-repeat !important;
+    background: url('https://static.vecteezy.com/system/resources/previews/015/497/716/non_2x/blue-comic-background-retro-free-vector.jpg') no-repeat center center fixed !important;
+    background-repeat: repeat-y !important;
     background-size: cover !important;
 }
 

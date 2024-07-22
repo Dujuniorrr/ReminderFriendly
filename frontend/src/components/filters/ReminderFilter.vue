@@ -7,7 +7,7 @@
         icon="mdi-filter-variant"
         elevation="8"
         style="z-index: 2000"
-        class="mb-3 text-primary border-md border-primary border-opacity-75 ma-3"
+        class=" text-primary border-md border-primary border-opacity-75 ma-3 mt-5"
         v-bind="props"
       >
       </v-btn>
@@ -88,6 +88,7 @@ export default defineComponent({
     updateModel(newValue: string | null | undefined) {
       let status = this.modelValue.status;
       let page = this.modelValue.page;
+      let search = this.modelValue.search;
       if (typeof newValue == "string") {
         status = newValue;
         page = 1;
@@ -97,6 +98,7 @@ export default defineComponent({
         status,
         limit: this.limit,
         page,
+        search
       });
     },
   },
