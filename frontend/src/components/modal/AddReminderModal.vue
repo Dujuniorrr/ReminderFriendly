@@ -94,7 +94,7 @@ const notSelectedCharacterState = {
   imagePath: "question-mark.png",
 };
 
-const TIMEOUT = 7000;
+const TIMEOUT = 15 * 1000;
 
 export default defineComponent({
   components: { CharacterCard, ReminderForm, SimpleToast },

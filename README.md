@@ -15,13 +15,47 @@
 5. [Melhorias Futuras](#melhorias-futuras)
 5. [Considerações Finais](#considerações-finais)
 
----
-
 ## Sobre o Projeto
+
+<p align="center"><img src="frontend/public/favicon.png" width="100" alt="Logo ReminderFriendly"></p>
+
+ReminderFriendly é uma aplicação desenvolvida para a criação de lembretes amigáveis e engraçados. Nesse sistema, você pode adicionar um lembrete por meio de linguagem natural e associá-lo a um personagem fictício. Seu lembrete será enviado para você na data correta, com uma mensagem interpretada com o humor e personalidade do personagem escolhido! 
+
+Este projeto é parte de um teste técnico para um processo seletivo da <a href="https://kevi.com.br" target="_blank">Kevi - Retenção de Clientes</a>. A proposta é desenvolver essa aplicação utilizando PHP e Slim Framework  no Back-End e Vue.js no Front-End, utilizando a API da OpenAI para processamento de linguagem natural do lembrete e a Z-API para enviar os lembretes por email.
+
 
 ## Configurações e Uso
 
 <p style="display: flex; justify-content: center ;background: white; border: 10px solid white; border-radius: 10px" align="center"><img src="docs/arch/containers.png" width="800"  alt="Logo Kevi"></p>
+Primeiro realize o fork do repositório:
+
+```bash
+git clone https://github.com/Dujuniorrr/kevi-test.git
+cd kevi-test
+```
+
+Para o correto funcionamento do sistema, é necessário adicionar os dados das APIS no arquivo `backend/.env.example`, sendo os dados:
+
+```env
+OPENAI_API_KEY=key
+
+Z_API_TOKEN=token
+Z_API_INSTANCE=instance
+Z_API_CLIENT_TOKEN=client_token
+
+PHONE=5577999999999
+```
+
+O sistema é dividido em uma aplicação SPA para Interface do Usuário, uma REST API para lidar com os dados informados e um SGBD para permanência de dados.
+
+Afim de tornar a aplicação portável e criar um ambiente de desenvolvimento único para qualquer pessoa que deseje rodar esta aplicação, foi utilizado Docker para criação de containers.
+
+Para subir os containers, é necessário realizar a <a href="https://docs.docker.com/engine/install/" target="_blank">a instalação do Docker</a>. Feito isso, rode o seguinte comando na raiz do projeto:
+
+```bash
+docker-compose up --build -d
+```
+Este comando irá criar as imagens com as instruções presentes em `Dockerfile-Backend` e `Dockerfile-Frontend` e subir os containers dos serviços como configurado em `docker-compose.yml`. O serviço back-end rodará na porta 9000, o serviço front-end rodará na porta 8000 e o SGBD MySQL rodará na porta 4000.
 
 ## Arquitetura e Design de Software
 
@@ -38,7 +72,7 @@ No contexto da arquitetura hexagonal, as camadas mais internas, que contêm as r
 
 ### Front-End 
 
-O front-end da aplicação utiliza `Vue.js` como framework para desenvolvimento da interface do sistema, com o código voltado para o negócio desenvolvido em `TypeScript`. Assim como o Back-End, design do código segue os princípios da arquitetura hexagonal, onde o sistema é dividido em camadas independentes usando o conceito de portas e adaptadores.
+O front-end da aplicação utiliza `Vue.js` como framework para desenvolvimento da interface do sistema, com o código voltado para as lógicas negócio desenvolvido em `TypeScript`. Assim como o Back-End, o design do código segue os princípios da arquitetura hexagonal, onde o sistema é dividido em camadas independentes usando o conceito de portas e adaptadores.
 
 Essa abordagem visa manter as camadas internas da aplicação desacopladas, principalmente dos componentes Vue e de recursos externos (como APIs e bibliotecas). Esta escolha de design foi realizada pelos mesmos motivos pelos quais foi usada no back-end. Isto tornou a aplicação mais flexível e testável, sem acoplar regras de negócios nos componentes e diminuindo a complexidade nessa camada de apresentação.
 
@@ -108,7 +142,7 @@ Para listar lembretes por mês, deve-se acessar este endpoint via método GET. A
 
 ### Testes
 
-![Screenshot from 2024-07-18 09-19-40](docs/diagrams/imgs/test-backend.png)
+![test-backend](docs/diagrams/imgs/test-backend.png)
 
 Foram realizados testes unitários e de integração com uma boa cobertura, sendo estes fáceis de implementar devido ao design de código seguido. 54 testes foram feitos, com 1137 asserções e 100% de acerto.
 
@@ -159,9 +193,15 @@ A disposição de classes presentes no Front-End é menos complexa que a do Back
      - Ela fornece métodos como `get`, `post`, `delete`, `put`, que são utilizados pelos gateways para interagir com a API.
      - Exemplo: `AxiosHttpClient.post` envia uma requisição `POST` para a API com os dados do novo lembrete.
 
+#### Aparência
+
+![screens](docs/screens.png)
+
+A apresentação do sistema foi desenvovlida visando trazer uma sensação de conforto e diversão. Para chegar neste resultado, o uso de cores diversas e componentes inspirados em apps gameficados foi essencial.
+
 ### Testes
 
-![Screenshot from 2024-07-21 15-19-35](docs/diagrams/imgs/test-front.png)
+![tests-front](docs/diagrams/imgs/test-front.png)
 
 Foram realizados testes unitários e de integração para as classes em `TypeScript` com uma boa cobertura, sendo estes fáceis de implementar devido ao design de código seguido. 8 suites de testes foram feitos, com 35 testes tendo asserções e 100% de acerto. Vale ressaltar que os testes dos componentes foram feitos manualmente, podendo ser realizados testes automatizados no futuro para assegurar melhor qualidade.
 

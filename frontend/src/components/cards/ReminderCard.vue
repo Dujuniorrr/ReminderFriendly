@@ -2,7 +2,7 @@
   <v-card
     class="mx-auto rounded-lg border-md border-opacity-75 h-100"
     :class="`border-${reminder.character.color}`"
-    max-width="400 h-100"
+    max-width="400"
   >
     <v-card-actions :class="`px-0 bg-${reminder.character.color}-darken-2`">
       <v-list-item class="w-100">
@@ -70,6 +70,7 @@
     <v-card-text class="py-2 reminder-message">
       {{ reminder.originalMessage }}
     </v-card-text>
+
   </v-card>
 </template>
  
