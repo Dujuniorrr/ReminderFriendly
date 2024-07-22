@@ -107,6 +107,23 @@ describe('APIReminderGateway', () => {
         expect(reminders[0].getCharacter().getId()).toBe('1');
     });
 
+    it('should list reminders by month', async () => {
+        const currentDate = new Date();
+
+        const currentMonth = currentDate.getMonth() + 1;
+
+        const currentYear = currentDate.getFullYear();
+
+        const reminders = await apiReminderGateway.listByMonth(currentMonth, currentYear);
+
+        expect(reminders.length).toBe(1);
+        expect(reminders[0]).toBeInstanceOf(Reminder);
+        expect(reminders[0].getId()).toBe('1');
+        expect(reminders[0].getOriginalMessage()).toBe('Test Message');
+        expect(reminders[0].getCharacter()).toBeInstanceOf(Character);
+        expect(reminders[0].getCharacter().getId()).toBe('1');
+    });
+
     it('should handle error when listing reminders', async () => {
         mockHttpClient.get = async (url: string, params: any): Promise<Output> => ({
             success: false,
@@ -118,6 +135,19 @@ describe('APIReminderGateway', () => {
 
         expect(reminders.length).toBe(0);
     });
+
+    it('should handle error when listing reminders by month', async () => {
+        mockHttpClient.get = async (url: string, params: any): Promise<Output> => ({
+            success: false,
+            status: 500,
+            data: {}
+        });
+
+        const reminders = await apiReminderGateway.listByMonth(12, 2023003);
+
+        expect(reminders.length).toBe(0);
+    });
+
 
     it('should delete a reminder', async () => {
         const response = await apiReminderGateway.delete('1');

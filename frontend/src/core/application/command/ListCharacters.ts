@@ -8,11 +8,11 @@ import CharacterGateway from "../gateway/CharacterGateway";
 export default class ListCharacters {
     /**
      * Creates an instance of ListCharacters.
-     * @param {CharacterGateway} characterGteway
+     * @param {CharacterGateway} characterGateway
      * @memberof ListCharacters
      */
     constructor(
-        private readonly characterGteway: CharacterGateway
+        private readonly characterGateway: CharacterGateway
     ) { }
 
     /**
@@ -21,7 +21,7 @@ export default class ListCharacters {
      * @memberof ListCharacters
      */
     public async execute(input: Input): Promise<Output[]> {
-        const characters: Character[] = await this.characterGteway.list();
+        const characters: Character[] = await this.characterGateway.list();
         const output: Output[] = characters.map((character: Character) => {
             return {
                 id: character.getId(),

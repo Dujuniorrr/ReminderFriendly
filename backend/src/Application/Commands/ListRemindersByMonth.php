@@ -2,16 +2,15 @@
 
 namespace Src\Application\Commands;
 
-use Src\Application\DTO\ListReminders\ListRemindersInput;
 use Src\Application\DTO\ListReminders\ListRemindersOutput;
 use Src\Application\Repository\ReminderRepository;
 
 /**
- * Class ListReminders
+ * Class ListRemindersByMonth
  * 
- * Command to list reminders.
+ * Command to list reminders by month.
  */
-final class ListReminders
+final class ListRemindersByMonth
 {
     /**
      * @var ReminderRepository $reminderRepository Repository for reminders
@@ -24,17 +23,20 @@ final class ListReminders
     /**
      * Executes the command to create a reminder.
      *
-     * @param ListRemindersInput $input Input data for listing reminders
+     * @param int $month Month for filtering by month
+     * @param int $year Year for filtering by year
      * 
      * @return array<array<ListRemindersOutput>|int> Output data of reminders list and total reminders count
      * 
      */
-    public function execute(ListRemindersInput $input): array
+    public function execute(int $month, int $year): array
     {
-        $reminders = $this->reminderRepository->list(
-            $input->page, $input->limit, $input->status);
-        
-        $total = $this->reminderRepository->count($input->status);
+        $reminders = $this->reminderRepository->listByMonth(
+            $month ?? date('n'),
+            $year ?? date('Y')
+        );
+
+        $total = count($reminders);
 
         $output = array_map(
             function ($reminder) {
@@ -60,6 +62,6 @@ final class ListReminders
             },
             $reminders
         );
-        return [$output, $total ];
+        return [$output, $total];
     }
 }

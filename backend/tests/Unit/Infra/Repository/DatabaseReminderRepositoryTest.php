@@ -123,6 +123,7 @@ class DatabaseReminderRepositoryTest extends TestCase
             'accent' => 'American',
             'archetype' => 'Anti-hero',
             'imagePath' => '/path/to/image.jpg',
+            'color' => 'blue'
         ];
 
         $remindersData = [

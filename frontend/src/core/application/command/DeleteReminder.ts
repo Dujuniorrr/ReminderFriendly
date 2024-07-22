@@ -5,7 +5,7 @@ import ReminderGateway from "../gateway/ReminderGateway";
  */
 export default class DeleteReminder {
     constructor(
-        private readonly reminderGteway: ReminderGateway
+        private readonly reminderGateway: ReminderGateway
     ) { }
     
     /**
@@ -16,7 +16,7 @@ export default class DeleteReminder {
      * @memberof DeleteReminder
      */
     public async execute(id: string): Promise<Output> {
-        const response = await this.reminderGteway.delete(id);
+        const response = await this.reminderGateway.delete(id);
 
         switch (response.type) {
             case 'success':

@@ -40,7 +40,6 @@ describe('CreateReminder Integration Test', () => {
 
         const output = await createReminder.execute(input);
 
-        console.log(output.content_error)
         expect(output.content_error).toEqual(true);
     });
 
@@ -52,7 +51,7 @@ describe('CreateReminder Integration Test', () => {
         expect(output).toEqual({
             success: false,
             content_error: false,
-            message: 'Eita! Algum erro ocorreu...'
+            message: 'Eita! Não foi possível adicionar o seu lembrete...'
         });
     });
 });

@@ -5,8 +5,7 @@
     fullscreen
     v-model="dialog"
   >
-    <v-card style="background: transparent !important">
-      <div class="h-100 w-100 main-bg">
+    <v-card class="card-bg">
         <v-toolbar
           style="background: transparent !important"
           class="text-white"
@@ -50,7 +49,6 @@
             </v-col>
           </v-row>
         </v-container>
-      </div>
     </v-card>
     <SimpleToast
       :message="toast.message"

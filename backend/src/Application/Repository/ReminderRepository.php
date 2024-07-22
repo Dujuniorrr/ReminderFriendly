@@ -15,11 +15,11 @@ interface ReminderRepository
     function save(Reminder $reminder): string;
 
     /**
-    * Update a reminder.
-    *
-    * @param Reminder $reminder The reminder object to update.
-    * @return string ID of reminder updated.
-    */
+     * Update a reminder.
+     *
+     * @param Reminder $reminder The reminder object to update.
+     * @return string ID of reminder updated.
+     */
     function update(Reminder $reminder): string;
 
 
@@ -32,6 +32,15 @@ interface ReminderRepository
      * @return array<Reminder> An array of Reminder objects.
      */
     public function list(int $page = 1, int $limit = 10, string $status = 'notSend'): array;
+
+    /**
+     * List reminders by month.
+     *
+     * @param int $month Month
+     * @param int $year Year
+     * @return array<Reminder> An array of Reminder objects.
+     */
+    public function listByMonth(int $month, int $year): array;
 
     /**
      * Delete a reminder by ID.

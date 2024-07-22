@@ -1,10 +1,10 @@
 <template>
   <v-col class="mb-10">
     <v-row>
-      <v-col cols="12" lg="4" class="pt-0 mt-3">
-        <Calendar />
+      <v-col cols="12" :lg="!allscreenCalendar ? 4 : 12" class="pt-0 mt-3">
+        <Calendar :fullScreen="allscreenCalendar" @allscreenCalendar="onAllscreenCalendar" />
       </v-col>
-      <v-col cols="12" lg="8" class="rounded-lg" style="min-height: 50vh !important">
+      <v-col cols="12" :lg="!allscreenCalendar ? 8 : 12" class="rounded-lg" style="min-height: 50vh !important">
         <ReminderList
           @deleteReminder="deleteReminder"
           @sendReminder="sendReminder"
@@ -72,6 +72,7 @@ export default defineComponent({
   },
   data() {
     return {
+      allscreenCalendar: false,
       loadingList: true,
       reminders: [],
       pagination: {
@@ -103,6 +104,9 @@ export default defineComponent({
     this.fetchReminders();
   },
   methods: {
+    onAllscreenCalendar(){
+      this.allscreenCalendar = !this.allscreenCalendar;
+    },  
     async sendReminder(data: Object) {
       const output = await sendReminder.execute(data["id"]);
       this.presentResponse(output);

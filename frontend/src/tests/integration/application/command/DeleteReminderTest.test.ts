@@ -9,7 +9,7 @@ test('should successfully delete a reminder', async () => {
     const reminderGateway: ReminderGateway = new APIReminderGateway(httpClient);
     const deleteReminder = new DeleteReminder(reminderGateway);
 
-    const output = await deleteReminder.execute('8');
+    const output = await deleteReminder.execute('10');
 
     expect(output.success).toBe(true);
     expect(output.message).toBe('Lembrete deletado!');
