@@ -88,6 +88,7 @@ export default defineComponent({
     updateModel(newValue: string | null | undefined) {
       let status = this.modelValue.status;
       let page = this.modelValue.page;
+      let search = this.modelValue.search;
       if (typeof newValue == "string") {
         status = newValue;
         page = 1;
@@ -97,6 +98,7 @@ export default defineComponent({
         status,
         limit: this.limit,
         page,
+        search
       });
     },
   },

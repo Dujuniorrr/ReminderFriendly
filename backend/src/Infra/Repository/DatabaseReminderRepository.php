@@ -84,7 +84,7 @@ class DatabaseReminderRepository implements ReminderRepository
     }
 
 
-    public function list(int $page = 1, int $limit = 10, string $status = 'notSend'): array
+    public function list(int $page = 1, int $limit = 10, string $status = 'notSend', ?string $search = null): array
     {
         if (!isset($this->reminderStatus[$status])) {
             throw new Exception('Status of reminder invalid. Options: send, notSend');
@@ -99,9 +99,13 @@ class DatabaseReminderRepository implements ReminderRepository
                   FROM reminders INNER JOIN characters
                   ON characters.id = reminders.characterId 
                   WHERE reminders.send = ?
+                  AND (
+                      ? IS NULL OR reminders.originalMessage LIKE ?  OR processedMessage LIKE ?
+                  )
                   LIMIT ? OFFSET ?";
 
-        $params = [$statusFilter, $limit, $offset];
+        $search = ($search) ? "%{$search}%" : null;
+        $params = [$statusFilter, $search, $search,   $search, $limit, $offset];
 
         try {
             $results = $this->connection->query($query, $params);
@@ -126,7 +130,7 @@ class DatabaseReminderRepository implements ReminderRepository
                   WHERE MONTH(reminders.date) = ? AND YEAR(reminders.date) = ? AND reminders.send = ?
                   ORDER BY reminders.date ASC";
 
-        $params = [$month, $year, 0 ];
+        $params = [$month, $year, 0];
 
         try {
             $results = $this->connection->query($query, $params);
@@ -142,17 +146,19 @@ class DatabaseReminderRepository implements ReminderRepository
         }
     }
 
-    public function count(string $status = 'send'): int
+    public function count(string $status = 'send', ?string $search = null): int
     {
         if (!isset($this->reminderStatus[$status])) {
             throw new Exception('Status of reminder invalid. Options: send, notSend');
         }
-
         $statusFilter = $this->reminderStatus[$status];
+        
+        $query = "SELECT COUNT(*) AS total FROM reminders WHERE send = ? AND  (
+            ? IS NULL OR originalMessage LIKE ?  OR processedMessage LIKE ?
+        )";
 
-        $query = "SELECT COUNT(*) AS total FROM reminders WHERE send = ?";
-
-        $params = [$statusFilter];
+        $search = ($search) ? "%{$search}%" : null;
+        $params = [$statusFilter, $search, $search, $search];
 
         try {
             $result = $this->connection->query($query, $params);

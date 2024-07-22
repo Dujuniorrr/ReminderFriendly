@@ -29,9 +29,10 @@ interface ReminderRepository
      * @param int $page Current Page
      * @param int $limit Limit of reminders, max 100
      * @param string $status Status of reminder: all, send
+     * @param ?string $search Search for reminders
      * @return array<Reminder> An array of Reminder objects.
      */
-    public function list(int $page = 1, int $limit = 10, string $status = 'notSend'): array;
+    public function list(int $page = 1, int $limit = 10, string $status = 'notSend', ?string $search = null): array;
 
     /**
      * List reminders by month.
@@ -54,9 +55,10 @@ interface ReminderRepository
      * Count reminders based on status.
      *
      * @param string $status Status of reminders to count: all, send
+     * @param ?string $search Search for reminders
      * @return int The total number of reminders.
      */
-    function count(string $status = 'notSend'): int;
+    function count(string $status = 'notSend', ?string $search = null): int;
 
     /**
      * Find a reminder by ID.

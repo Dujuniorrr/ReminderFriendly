@@ -32,9 +32,9 @@ final class ListReminders
     public function execute(ListRemindersInput $input): array
     {
         $reminders = $this->reminderRepository->list(
-            $input->page, $input->limit, $input->status);
+            $input->page, $input->limit, $input->status, $input->search);
         
-        $total = $this->reminderRepository->count($input->status);
+        $total = $this->reminderRepository->count($input->status, $input->search);
 
         $output = array_map(
             function ($reminder) {
