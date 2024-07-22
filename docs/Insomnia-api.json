@@ -1,0 +1,245 @@
+{
+    "_type": "export",
+    "__export_format": 4,
+    "__export_date": "2024-07-22T17:05:55.690Z",
+    "__export_source": "insomnia.desktop.app:v8.3.0",
+    "resources": [
+        {
+            "_id": "req_b4c7bf6d00644127abadddce0b7090c2",
+            "parentId": "fld_866d8d38251c450697dd64b931b72633",
+            "modified": 1721244253974,
+            "created": 1721241981502,
+            "url": "{{ _.base_url_dev }}character",
+            "name": "List Characters",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.3.0"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1721241981502,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "fld_866d8d38251c450697dd64b931b72633",
+            "parentId": "wrk_abff073b47f54e1e9a954afedef462e6",
+            "modified": 1721241978413,
+            "created": 1721241978413,
+            "name": "Characters",
+            "description": "",
+            "environment": {},
+            "environmentPropertyOrder": null,
+            "metaSortKey": -1721241978413,
+            "_type": "request_group"
+        },
+        {
+            "_id": "wrk_abff073b47f54e1e9a954afedef462e6",
+            "parentId": null,
+            "modified": 1721141543203,
+            "created": 1721141543203,
+            "name": "Kevi Test",
+            "description": "",
+            "scope": "collection",
+            "_type": "workspace"
+        },
+        {
+            "_id": "req_5f4fba70cbca40a7bc0af7f24fd560b6",
+            "parentId": "fld_3fe193ffc9e942158c8402c33896d1fd",
+            "modified": 1721482663605,
+            "created": 1721254229560,
+            "url": "{{ _.base_url_dev }}reminder/2/send",
+            "name": "Send Reminder",
+            "description": "",
+            "method": "PUT",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.3.0"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1721254229560,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "fld_3fe193ffc9e942158c8402c33896d1fd",
+            "parentId": "wrk_abff073b47f54e1e9a954afedef462e6",
+            "modified": 1721241963182,
+            "created": 1721241963182,
+            "name": "Reminders",
+            "description": "",
+            "environment": {},
+            "environmentPropertyOrder": null,
+            "metaSortKey": -1721241963182,
+            "_type": "request_group"
+        },
+        {
+            "_id": "req_d98f91487fbf4c88a40a5f90b46ee215",
+            "parentId": "fld_3fe193ffc9e942158c8402c33896d1fd",
+            "modified": 1721658238398,
+            "created": 1721141546015,
+            "url": "{{ _.base_url_dev }}reminder ",
+            "name": "Create Reminder",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"content\": \"Estudar docker\",\n\t\"characterId\": \"1\"\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.3.0"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1721241968974,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_99fb71ea042e4613ab75579054321d37",
+            "parentId": "fld_3fe193ffc9e942158c8402c33896d1fd",
+            "modified": 1721664628177,
+            "created": 1721219932216,
+            "url": "{{ _.base_url_dev }}reminder?page=1&limit=9&search=dia 21",
+            "name": "List Reminders",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.3.0"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1721241968874,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_e6611e2b88c0486caba132514eda9b3f",
+            "parentId": "fld_3fe193ffc9e942158c8402c33896d1fd",
+            "modified": 1721603444920,
+            "created": 1721600818133,
+            "url": "{{ _.base_url_dev }}reminder/by-month/7/2024",
+            "name": "List Reminders By Month",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.3.0"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1721241968824,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_872cafc4419e416e957bc7a951f9a648",
+            "parentId": "fld_3fe193ffc9e942158c8402c33896d1fd",
+            "modified": 1721304653752,
+            "created": 1721225703613,
+            "url": "{{ _.base_url_dev }}reminder/142",
+            "name": "Delete Reminder",
+            "description": "",
+            "method": "DELETE",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.3.0"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1721241968774,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "env_1a91b85545132f2eb80283e7252989443c1354b3",
+            "parentId": "wrk_abff073b47f54e1e9a954afedef462e6",
+            "modified": 1721141607183,
+            "created": 1721141543206,
+            "name": "Base Environment",
+            "data": {
+                "base_url_dev": "http://localhost:9000/api/"
+            },
+            "dataPropertyOrder": {
+                "&": [
+                    "base_url_dev"
+                ]
+            },
+            "color": null,
+            "isPrivate": false,
+            "metaSortKey": 1721141543206,
+            "_type": "environment"
+        },
+        {
+            "_id": "jar_1a91b85545132f2eb80283e7252989443c1354b3",
+            "parentId": "wrk_abff073b47f54e1e9a954afedef462e6",
+            "modified": 1721141543209,
+            "created": 1721141543209,
+            "name": "Default Jar",
+            "cookies": [],
+            "_type": "cookie_jar"
+        }
+    ]
+}

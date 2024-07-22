@@ -1,6 +1,6 @@
 <template>
   <div class="h-100">
-    <div>
+    <div >
         <v-text-field
           @input="searchReminder"
           density="comfortable"
@@ -9,6 +9,7 @@
           style="max-width: 350px"
           variant="solo"
           base-color="primary"
+          class="mx-auto mx-sm-0"
           auto-select-first
           item-props
           rounded
@@ -125,7 +126,7 @@ export default defineComponent({
 
       this.timeout = setTimeout(() => {
         this.$emit("searchReminder", { val: event.target.value });
-      }, 1000);
+      }, 700);
     },
     sendReminder(data: Object) {
       this.$emit("sendReminder", data);
