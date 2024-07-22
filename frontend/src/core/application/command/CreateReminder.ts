@@ -35,7 +35,7 @@ export default class CreateReminder {
                 return {
                     success: false,
                     content_error: false,
-                    message: 'Eita! Algum erro ocorreu...'
+                    message: 'Eita! Não foi possível adicionar o seu lembrete...'
                 }
         }
 

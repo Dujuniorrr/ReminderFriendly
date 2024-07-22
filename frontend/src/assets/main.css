@@ -10,8 +10,7 @@
 }
 
 .card-bg {
-    background: rgb(2, 0, 36);
-    background: #010e20fd;
+    background: rgba(2, 0, 36, 0.61) !important;
 }
 
 @keyframes fadeIn {

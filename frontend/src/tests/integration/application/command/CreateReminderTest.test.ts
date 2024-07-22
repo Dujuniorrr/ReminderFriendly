@@ -51,7 +51,7 @@ describe('CreateReminder Integration Test', () => {
         expect(output).toEqual({
             success: false,
             content_error: false,
-            message: 'Eita! Algum erro ocorreu...'
+            message: 'Eita! Não foi possível adicionar o seu lembrete...'
         });
     });
 });
