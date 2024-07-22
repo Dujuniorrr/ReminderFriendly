@@ -2,19 +2,26 @@
 
 namespace Src\Infra\Http\Server;
 
+use DI\ContainerBuilder;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
 use Slim\Factory\AppFactory;
 use Src\Application\Http\Server\HttpServer;
 
-
 class SlimServerAdapter implements HttpServer
 {
     private $app;
+    private $container;
 
     public function __construct()
     {
+        $containerBuilder = new ContainerBuilder();
+        $dependencies = require __DIR__ . '/../../../../config/di-config.php';
+        $dependencies($containerBuilder);
+        $this->container = $containerBuilder->build();
+
+        AppFactory::setContainer($this->container);
         $this->app = AppFactory::create();
         $this->app->addBodyParsingMiddleware();
         $this->configCORS($this->app);
@@ -24,21 +31,21 @@ class SlimServerAdapter implements HttpServer
         $this->app->options('/{routes:.+}', function ($request, $response, $args) {
             return $response;
         });
-        
     }
 
-    public function register(string $method, string $url, callable $callback): void
+    public function register(string $method, string $url, $data): void
     {
-        $this->app->{strtolower($method)}($url, function (Request $request, Response $response, $args) use ($callback) {
-            $data = $callback();
+        $container = $this->container;
 
+        $this->app->{strtolower($method)}($url, function (Request $request, Response $response, $args) use ($data, $container) {
             if (!is_array($data) || count($data) < 2) {
                 throw new \RuntimeException('Invalid callback return format');
             }
 
-            $controller = $data[0];
+            [$controllerClass, $method] = $data;
+            $controller = $container->get($controllerClass);
 
-            $output = call_user_func_array([$controller, $data[1]], [
+            $output = call_user_func_array([$controller, $method], [
                 array_merge(
                     $args,
                     $request->getQueryParams()
@@ -70,10 +77,9 @@ class SlimServerAdapter implements HttpServer
             $response = $handler->handle($request);
 
             return $response
-            ->withHeader('Access-Control-Allow-Origin', '*')
-            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
-            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-            
+                ->withHeader('Access-Control-Allow-Origin', '*')
+                ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+                ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
         });
     }
 }

@@ -5,6 +5,8 @@
         <Calendar :fullScreen="allscreenCalendar" @allscreenCalendar="onAllscreenCalendar" />
       </v-col>
       <v-col cols="12" :lg="!allscreenCalendar ? 8 : 12" class="rounded-lg" style="min-height: 50vh !important">
+
+     
         <ReminderList
           @deleteReminder="deleteReminder"
           @sendReminder="sendReminder"

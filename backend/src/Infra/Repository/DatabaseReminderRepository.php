@@ -43,7 +43,7 @@ class DatabaseReminderRepository implements ReminderRepository
             return $this->connection->lastInsertId();
         } catch (Exception $e) {
 
-            throw new Exception("Error saving reminder" . $e->getMessage());
+            throw new Exception("Error saving reminder");
         }
     }
 
@@ -113,7 +113,7 @@ class DatabaseReminderRepository implements ReminderRepository
 
             return $reminders;
         } catch (Exception $e) {
-            throw new Exception("Error listing reminders" . $e->getMessage());
+            throw new Exception("Error listing reminders");
         }
     }
 
@@ -138,7 +138,7 @@ class DatabaseReminderRepository implements ReminderRepository
 
             return $reminders;
         } catch (Exception $e) {
-            throw new Exception("Error listing reminders" . $e->getMessage());
+            throw new Exception("Error listing reminders");
         }
     }
 
@@ -182,7 +182,7 @@ class DatabaseReminderRepository implements ReminderRepository
 
             return $this->mapToReminder($result[0]);
         } catch (Exception $e) {
-            throw new Exception("Error finding reminder: " . $e->getMessage());
+            throw new Exception("Error finding reminder: ");
         }
     }
 

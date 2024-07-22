@@ -74,8 +74,6 @@ class DatabaseCharacterRepository implements CharacterRepository
         }
     }
 
-
-
     private function mapToCharacter(array $data): Character
     {
         return Character::create(
