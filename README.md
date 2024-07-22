@@ -19,9 +19,9 @@
 
 <p align="center"><img src="frontend/public/favicon.png" width="100" alt="Logo ReminderFriendly"></p>
 
-ReminderFriendly é uma aplicação desenvolvida para a criação de lembretes amigáveis e engraçados. Nesse sistema, você pode adicionar um lembrete por meio de linguagem natural e associá-lo a um personagem fictício. Seu lembrete será enviado para você na data correta, com uma mensagem interpretada com o humor e personalidade do personagem escolhido! 
+**ReminderFriendly** é uma aplicação desenvolvida para a criação de lembretes amigáveis e engraçados. Nesse sistema, você pode adicionar um lembrete por meio de linguagem natural e associá-lo a um personagem fictício. Seu lembrete será enviado para você na data correta, com uma mensagem interpretada com o humor e personalidade do personagem escolhido! 
 
-Este projeto é parte de um teste técnico para um processo seletivo da <a href="https://kevi.com.br" target="_blank">Kevi - Retenção de Clientes</a>. A proposta é desenvolver essa aplicação utilizando PHP e Slim Framework  no Back-End e Vue.js no Front-End, utilizando a API da OpenAI para processamento de linguagem natural do lembrete e a Z-API para enviar os lembretes por email.
+Este projeto é parte de um teste técnico para um processo seletivo da <a href="https://kevi.com.br" target="_blank">Kevi - Retenção de Clientes</a>. A proposta é desenvolver essa aplicação utilizando PHP e Slim Framework  no Back-End e Vue.js no Front-End, utilizando a API da **OpenAI** para processamento de linguagem natural do lembrete e a **Z-API** para enviar os lembretes por email.
 
 
 ## Configurações e Uso
