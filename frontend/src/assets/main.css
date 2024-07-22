@@ -6,7 +6,7 @@
 
 .main-bg {
     background: rgb(2, 0, 36);
-    background: linear-gradient(0deg, rgba(2, 0, 36, 0.4920167896260067) 0%, rgba(28, 28, 71, 0.7049019436876314) 63%, rgba(28, 26, 71, 0.6628851369649422) 100%);
+    background: linear-gradient(0deg, rgba(2, 0, 36, 0.4920167896260067) 0%, rgba(28, 28, 71, 0.863) 63%, rgba(28, 26, 71, 0.6628851369649422) 100%);
 }
 
 .card-bg {

@@ -34,7 +34,7 @@ git clone https://github.com/Dujuniorrr/kevi-test.git
 cd kevi-test
 ```
 
-Para o correto funcionamento do sistema, é necessário adicionar os dados das APIS no arquivo `backend/.env.example`, sendo os dados:
+Para o correto funcionamento do sistema, é necessário adicionar os dados das APIS no arquivo `backend/.env.example`, sendo os seguintes dados requisitados:
 
 ```env
 OPENAI_API_KEY=key
@@ -46,16 +46,18 @@ Z_API_CLIENT_TOKEN=client_token
 PHONE=5577999999999
 ```
 
-O sistema é dividido em uma aplicação SPA para Interface do Usuário, uma REST API para lidar com os dados informados e um SGBD para permanência de dados.
+O projeto é dividido em uma aplicação SPA para Interface do Usuário, uma REST API para lidar com os dados informados e um SGBD para permanência de dados.
 
 Afim de tornar a aplicação portável e criar um ambiente de desenvolvimento único para qualquer pessoa que deseje rodar esta aplicação, foi utilizado Docker para criação de containers.
 
-Para subir os containers, é necessário realizar a <a href="https://docs.docker.com/engine/install/" target="_blank">a instalação do Docker</a>. Feito isso, rode o seguinte comando na raiz do projeto:
+Para subir os containers, é necessário realizar a <a href="https://docs.docker.com/engine/install/" target="_blank">instalação do Docker</a>. Feito isso, rode o seguinte comando na raiz do projeto:
 
 ```bash
 docker-compose up --build -d
 ```
 Este comando irá criar as imagens com as instruções presentes em `Dockerfile-Backend` e `Dockerfile-Frontend` e subir os containers dos serviços como configurado em `docker-compose.yml`. O serviço back-end rodará na porta 9000, o serviço front-end rodará na porta 8000 e o SGBD MySQL rodará na porta 4000.
+
+Caso queira testar a API utilizando o `Insomnia`, é possível realizar a importação do arquivo presente em `docs/Insomnia-api.json` em uma nova coleção.
 
 ## Arquitetura e Design de Software
 
@@ -63,7 +65,7 @@ Este comando irá criar as imagens com as instruções presentes em `Dockerfile-
 
 ### Back-End
 
-O Back-End da aplicação utiliza o `Slim Framework` para gerenciar as rotas da API e depende do SGBD `MySQL` para persistência de dados. O design do código segue os princípios da arquitetura hexagonal, onde o sistema é dividido em camadas independentes usando o conceito de portas e adaptadores. 
+O Back-End da aplicação foi feito em `PHP`, utiliza o `Slim Framework` para gerenciar as rotas da API e depende do SGBD `MySQL` para persistência de dados, além disso, possui o `PHPUnit` para realização de testes. O design do código segue os princípios da arquitetura hexagonal, onde o sistema é dividido em camadas independentes usando o conceito de portas e adaptadores. 
 
 Essa abordagem visa manter as camadas internas da aplicação desacopladas de drivers específicos (como interfaces de usuário, endpoints de APIs, testes e filas) e de recursos externos (como bancos de dados, APIs externas e bibliotecas). 
 
@@ -72,9 +74,9 @@ No contexto da arquitetura hexagonal, as camadas mais internas, que contêm as r
 
 ### Front-End 
 
-O front-end da aplicação utiliza `Vue.js` como framework para desenvolvimento da interface do sistema, com o código voltado para as lógicas negócio desenvolvido em `TypeScript`. Assim como o Back-End, o design do código segue os princípios da arquitetura hexagonal, onde o sistema é dividido em camadas independentes usando o conceito de portas e adaptadores.
+O front-end da aplicação utiliza `Vue.js` como framework para desenvolvimento da interface do sistema, com o código voltado para as lógicas de negócio desenvolvido em `TypeScript` e os testes feitos com `Jest`. Assim como o Back-End, o design do código segue os princípios da arquitetura hexagonal, onde o sistema é dividido em camadas independentes usando o conceito de portas e adaptadores.
 
-Essa abordagem visa manter as camadas internas da aplicação desacopladas, principalmente dos componentes Vue e de recursos externos (como APIs e bibliotecas). Esta escolha de design foi realizada pelos mesmos motivos pelos quais foi usada no back-end. Isto tornou a aplicação mais flexível e testável, sem acoplar regras de negócios nos componentes e diminuindo a complexidade nessa camada de apresentação.
+Essa abordagem visa manter as camadas internas da aplicação desacopladas, principalmente dos componentes Vue e de recursos externos (como APIs e bibliotecas). Esta escolha de design foi realizada pelos mesmos motivos pelos quais foi usada no back-end. Isto tornou a aplicação mais flexível e testável, sem acoplar regras de negócios nos componentes e diminuindo a complexidade na camada de apresentação.
 
 
 ## Funcionalidades
@@ -197,7 +199,7 @@ A disposição de classes presentes no Front-End é menos complexa que a do Back
 
 ![screens](docs/screens.png)
 
-A apresentação do sistema foi desenvovlida visando trazer uma sensação de conforto e diversão. Para chegar neste resultado, o uso de cores diversas e componentes inspirados em apps gameficados foi essencial.
+A apresentação do sistema foi desenvolvida visando trazer uma sensação de conforto e diversão. Para chegar neste resultado, o uso de cores diversas e componentes inspirados em apps gameficados foi essencial.
 
 ### Testes
 
@@ -207,4 +209,21 @@ Foram realizados testes unitários e de integração para as classes em `TypeScr
 
 ## Melhorias Futuras
 
+Para melhorar ainda mais a aplicação ReminderFriendly, algumas das seguintes funcionalidades e melhorias podem ser consideradas:
+
+1. **Integração com Calendários**:
+   - Integrar com serviços de calendário como Google Calendar e Outlook para que os lembretes possam ser sincronizados automaticamente com os calendários dos usuários.
+
+2. **Suporte Multilíngue**:
+   - Adicionar suporte para múltiplos idiomas para alcançar um público mais amplo.
+
+3. **Testes Automatizados de Interface**:
+   - Implementar testes automatizados para os componentes de interface com ferramentas como Cypress ou Selenium e Vitest para assegurar a estabilidade da interface do usuário.
+
+ 
+ 
 ## Considerações Finais
+
+Além da documentação presente neste README, também é possível observar as *issues* e *pull requests* fechados, dos quais servem como uma forma de observar cronologicamente as decisões tomadas para chegar ao resultado final.
+
+Por fim, quero agradecer a <a href="https://kevi.com.br" target="_blank">Kevi - Retenção de Clientes</a> pela oportunidade de participar do processo seletivo, o qual foi bastante agrádavel e de muita riqueza para meu crescimento profissional.
