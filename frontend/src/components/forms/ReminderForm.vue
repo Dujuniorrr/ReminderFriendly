@@ -24,7 +24,6 @@
       <v-text-field
         v-model="content"
         :rules="rules"
-        prepend-inner-icon="mdi-calendar"
         counter="200"
         bg-color="light-blue-lighten-5"
         color="primary "
