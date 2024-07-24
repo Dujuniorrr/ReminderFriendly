@@ -57,6 +57,13 @@ docker-compose up --build -d
 ```
 Este comando irá criar as imagens com as instruções presentes em `Dockerfile-Backend` e `Dockerfile-Frontend` e subir os containers dos serviços como configurado em `docker-compose.yml`. O serviço back-end rodará na porta 9000, o serviço front-end rodará na porta 8000 e o SGBD MySQL rodará na porta 4000.
 
+Para criar as tabelas no banco, acesse o container que possui o SBGD MySQL e use o banco de dados, depois adicione o script presente em `backend/database.sql` no bash do container.
+```bash
+docker exec -ti db bash
+mysql -u kevi -p #senha: kevi
+use kevi;
+```
+
 Caso queira testar a API utilizando o `Insomnia`, é possível realizar a importação do arquivo presente em `docs/Insomnia-api.json` em uma nova coleção.
 
 ## Arquitetura e Design de Software
