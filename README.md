@@ -27,7 +27,7 @@ Este projeto é parte de um teste técnico para um processo seletivo da <a href=
 ## Configurações e Uso
 
 <p style="display: flex; justify-content: center ;background: white; border: 10px solid white; border-radius: 10px" align="center"><img src="docs/arch/containers.png" width="800"  alt="Logo Kevi"></p>
-Primeiro realize o fork do repositório:
+Primeiro realize o clone do repositório:
 
 ```bash
 git clone https://github.com/Dujuniorrr/kevi-test.git
