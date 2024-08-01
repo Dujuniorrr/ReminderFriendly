@@ -1,40 +1,45 @@
 <p align="center"><a href="https://kevi.com.br" target="_blank"><img src="docs/logo-kevi.svg" width="350" alt="Logo Kevi"></a></p>
 
-# Sumário
+<p align="center">
+<a href="README.md" target="_blank">English Version</a> - <a href="README-PT.md" target="_blank">Portuguese Version</a>
+</p>
 
-1. [Sobre o Projeto](#sobre-o-projeto)
-2. [Configurações e Uso](#configurações-e-uso)
-3. [Arquitetura e Design de Software](#arquitetura-e-design-de-software)
+
+# Table of Contents
+
+1. [About the Project](#about-the-project)
+2. [Setup and Usage](#setup-and-usage)
+3. [Software Architecture and Design](#software-architecture-and-design)
     - [Back-End](#back-end)
     - [Front-End](#front-end)
 
-4. [Funcionalidades](#funcionalidades)
+4. [Features](#features)
     - [Back-End](#back-end-2)
     - [Front-End](#front-end-2)
 
-5. [Melhorias Futuras](#melhorias-futuras)
-5. [Considerações Finais](#considerações-finais)
+5. [Future Improvements](#future-improvements)
+6. [Final Considerations](#final-considerations)
 
-## Sobre o Projeto
+## About the Project
 
-<p align="center"><img src="frontend/public/favicon.png" width="100" alt="Logo ReminderFriendly"></p>
+<p align="center"><img src="frontend/public/favicon.png" width="100" alt="ReminderFriendly Logo"></p>
 
-**ReminderFriendly** é uma aplicação desenvolvida para a criação de lembretes amigáveis e engraçados. Nesse sistema, você pode adicionar um lembrete por meio de linguagem natural e associá-lo a um personagem fictício. Seu lembrete será enviado para você na data correta, com uma mensagem interpretada com o humor e personalidade do personagem escolhido! 
+**ReminderFriendly** is an application designed to create friendly and humorous reminders. In this system, you can add a reminder using natural language and associate it with a fictional character. Your reminder will be sent to you on the correct date, with a message delivered in the humor and personality of the chosen character!
 
-Este projeto é parte de um teste técnico para um processo seletivo da <a href="https://kevi.com.br" target="_blank">Kevi - Retenção de Clientes</a>. A proposta é desenvolver essa aplicação utilizando PHP e Slim Framework  no Back-End e Vue.js no Front-End, utilizando a API da **OpenAI** para processamento de linguagem natural do lembrete e a **Z-API** para enviar os lembretes por whatsapp.
+This project is part of a technical assessment for a selection process at <a href="https://kevi.com.br" target="_blank">Kevi - Retenção de Clientes</a>. The goal is to develop this application using PHP and the Slim Framework for the Back-End and Vue.js for the Front-End, utilizing the **OpenAI** API for natural language processing of the reminder and the **Z-API** to send the reminders via WhatsApp.
 
+## Setup and Usage
 
-## Configurações e Uso
+<p style="display: flex; justify-content: center; background: white; border: 10px solid white; border-radius: 10px" align="center"><img src="docs/arch/containers.png" width="800" alt="Kevi Architecture"></p>
 
-<p style="display: flex; justify-content: center ;background: white; border: 10px solid white; border-radius: 10px" align="center"><img src="docs/arch/containers.png" width="800"  alt="Logo Kevi"></p>
-Primeiro realize o clone do repositório:
+First, clone the repository:
 
 ```bash
 git clone https://github.com/Dujuniorrr/kevi-test.git
 cd kevi-test
 ```
 
-Para o correto funcionamento do sistema, é necessário adicionar os dados das APIS no arquivo `backend/.env.example`, sendo os seguintes dados requisitados:
+To properly configure the system, you need to add the API data to the `backend/.env.example` file, including the following required data:
 
 ```env
 OPENAI_API_KEY=key
@@ -46,191 +51,187 @@ Z_API_CLIENT_TOKEN=client_token
 PHONE=5577999999999
 ```
 
-O projeto é dividido em uma aplicação SPA para Interface do Usuário, uma REST API para lidar com os dados informados e um SGBD para permanência de dados.
+The project is divided into a SPA for the User Interface, a REST API for handling data, and a database management system (DBMS) for data persistence.
 
-Afim de tornar a aplicação portável e criar um ambiente de desenvolvimento único para qualquer pessoa que deseje rodar esta aplicação, foi utilizado Docker para criação de containers.
+To make the application portable and create a consistent development environment for anyone who wants to run this application, Docker is used to create containers.
 
-Para subir os containers, é necessário realizar a <a href="https://docs.docker.com/engine/install/" target="_blank">instalação do Docker</a>. Feito isso, rode o seguinte comando na raiz do projeto:
+To start the containers, you need to <a href="https://docs.docker.com/engine/install/" target="_blank">install Docker</a>. Once installed, run the following command at the project root:
 
 ```bash
 docker-compose up --build -d
 ```
-Este comando irá criar as imagens com as instruções presentes em `Dockerfile-Backend` e `Dockerfile-Frontend` e subir os containers dos serviços como configurado em `docker-compose.yml`. O serviço back-end rodará na porta 9000, o serviço front-end rodará na porta 8000 e o SGBD MySQL rodará na porta 4000.
 
-Para criar as tabelas no banco, acesse o container que possui o SBGD MySQL e use o banco de dados, depois adicione o script presente em `backend/database.sql` no bash do container.
+This command will build the images according to the instructions in `Dockerfile-Backend` and `Dockerfile-Frontend` and start the service containers as configured in `docker-compose.yml`. The back-end service will run on port 9000, the front-end service on port 8000, and the MySQL DBMS on port 4000.
+
+To create the database tables, access the MySQL DBMS container and use the database, then run the script found in `backend/database.sql` in the container's bash:
+
 ```bash
 docker exec -ti db bash
-mysql -u kevi -p #senha: kevi
+mysql -u kevi -p #password: kevi
 use kevi;
 ```
 
-Caso queira testar a API utilizando o `Insomnia`, é possível realizar a importação do arquivo presente em `docs/Insomnia-api.json` em uma nova coleção.
+If you want to test the API using `Insomnia`, you can import the file found in `docs/Insomnia-api.json` into a new collection.
 
-## Arquitetura e Design de Software
+## Software Architecture and Design
 
 ![hexa-arch](docs/arch/hexa-arch.jpg)
 
 ### Back-End
 
-O Back-End da aplicação foi feito em `PHP`, utiliza o `Slim Framework` para gerenciar as rotas da API e depende do SGBD `MySQL` para persistência de dados, além disso, possui o `PHPUnit` para realização de testes. O design do código segue os princípios da arquitetura hexagonal, onde o sistema é dividido em camadas independentes usando o conceito de portas e adaptadores. 
+The back-end of the application is developed in `PHP`, using the `Slim Framework` to manage API routes and depending on the `MySQL` DBMS for data persistence. Additionally, it uses `PHPUnit` for testing. The code design follows the principles of hexagonal architecture, where the system is divided into independent layers using the concept of ports and adapters.
 
-Essa abordagem visa manter as camadas internas da aplicação desacopladas de drivers específicos (como interfaces de usuário, endpoints de APIs, testes e filas) e de recursos externos (como bancos de dados, APIs externas e bibliotecas). 
+This approach aims to keep the internal layers of the application decoupled from specific drivers (such as user interfaces, API endpoints, tests, and queues) and from external resources (such as databases, external APIs, and libraries).
 
-No contexto da arquitetura hexagonal, as camadas mais internas, que contêm as regras de negócio e de domínio centrais da aplicação, operam através de interfaces ou portas que definem contratos claros. As implementações concretas dessas interfaces são então adaptadas aos diferentes recursos externos, seguindo esses contratos. Isso permite que as classes mais críticas e próximas do núcleo da aplicação permaneçam independentes, promovendo assim a modularidade e a manutenção simplificada do sistema como um todo, já que existe baixo acoplamento e permite a criação de testes unitários criando fakes e mocks que sigam as interfaces existentes.
+In the context of hexagonal architecture, the more internal layers, which contain the core business and domain rules of the application, operate through interfaces or ports that define clear contracts. The concrete implementations of these interfaces are then adapted to different external resources, following these contracts. This allows the most critical and central classes of the application to remain independent, promoting modularity and simplified maintenance of the system as a whole, due to low coupling and enabling the creation of unit tests by using fakes and mocks that adhere to the existing interfaces.
 
+### Front-End
 
-### Front-End 
+The front-end of the application uses `Vue.js` as the framework for developing the system interface, with business logic written in `TypeScript` and testing done with `Jest`. Similar to the back-end, the code design follows the principles of hexagonal architecture, where the system is divided into independent layers using the concept of ports and adapters.
 
-O front-end da aplicação utiliza `Vue.js` como framework para desenvolvimento da interface do sistema, com o código voltado para as lógicas de negócio desenvolvido em `TypeScript` e os testes feitos com `Jest`. Assim como o Back-End, o design do código segue os princípios da arquitetura hexagonal, onde o sistema é dividido em camadas independentes usando o conceito de portas e adaptadores.
+This approach aims to keep the internal layers of the application decoupled, particularly from Vue components and external resources (such as APIs and libraries). This design choice was made for the same reasons as in the back-end. It has made the application more flexible and testable, without coupling business rules to components and reducing complexity in the presentation layer.
 
-Essa abordagem visa manter as camadas internas da aplicação desacopladas, principalmente dos componentes Vue e de recursos externos (como APIs e bibliotecas). Esta escolha de design foi realizada pelos mesmos motivos pelos quais foi usada no back-end. Isto tornou a aplicação mais flexível e testável, sem acoplar regras de negócios nos componentes e diminuindo a complexidade na camada de apresentação.
-
-
-## Funcionalidades
+## Features
 
 <h3 id="back-end-2">Back-End</h3>
 
 #### Endpoints
 
-Para ter uma visualização mais detalhadas dos endpoints, acesse a <a href="https://app.swaggerhub.com/apis-docs/DURVALJUNIOR117/ReminderFriendlyAPI/1.0.0" target="_blank">Documentação no Swagger</a>. 
+For a more detailed view of the endpoints, visit the <a href="https://app.swaggerhub.com/apis-docs/DURVALJUNIOR117/ReminderFriendlyAPI/1.0.0" target="_blank">Swagger Documentation</a>.
 
---- 
+---
 
-##### Create Reminder  - /api/reminder (POST)
+##### Create Reminder - /api/reminder (POST)
 
 ![CreateReminder](docs/diagrams/imgs/CreateReminder.jpg)
 
-Para criar um lembrete, deve-se acessar este endpoint via método POST. A rota direciona os parâmetros e o corpo da requisição para o `CreateReminderController`, que aciona o `CreateReminderValidator` e verifica se a requisição é válida. Caso seja, o controlador formata os dados conforme o DTO de entrada do comando `CreateReminder`. Este comando utiliza o `DatabaseCharacterRepository` para verificar se o personagem requisitado existe. Se não existir, um erro é retornado; caso contrário, o `Character` é recuperado.
+To create a reminder, access this endpoint via POST method. The route directs the parameters and request body to the `CreateReminderController`, which triggers the `CreateReminderValidator` to check if the request is valid. If valid, the controller formats the data according to the input DTO of the `CreateReminder` command. This command uses the `DatabaseCharacterRepository` to check if the requested character exists. If not, an error is returned; otherwise, the `Character` is retrieved.
 
-Em seguida, o gateway de processamento de linguagem natural `OpenAPINLPGateway` recebe o conteúdo enviado no corpo da requisição, junto com o personagem, para criar um lembrete divertido, utilizando sua API via HTTP com o `GuzzleHTTPClient`. Se o conteúdo não for compreendido, uma exceção é disparada. Caso seja compreendido com sucesso, o `Reminder` é instanciado e os dados da entidade são persistidos pelo `DatabaseReminderRepository` na base de dados. Por fim, um DTO de saída contendo os dados deste novo lembrete é retornado como resposta.
+Next, the natural language processing gateway `OpenAPINLPGateway` receives the content from the request body along with the character to create a fun reminder using its API via `GuzzleHTTPClient`. If the content is not understood, an exception is thrown. If understood successfully, the `Reminder` is instantiated, and the entity's data is persisted by the `DatabaseReminderRepository` in the database. Finally, an output DTO containing the data of this new reminder is returned as a response.
 
 ---
 
-##### Send Reminder  - /api/reminder/{id}/send (PUT)
+##### Send Reminder - /api/reminder/{id}/send (PUT)
 
 ![SendReminder](docs/diagrams/imgs/SendReminder.jpg)
 
-Para enviar um lembrete, deve-se acessar este endpoint via método PUT. A rota direciona os parâmetros e o corpo da requisição para o `SendReminderController`, que aciona o  o comando `SendReminder`. Este comando utiliza o `DatabaseReminderRepository` para verificar se a entidade requisitada existe. Se não existir, um erro é retornado; caso contrário, o `Reminder` é recuperado. 
+To send a reminder, access this endpoint via PUT method. The route directs the parameters and request body to the `SendReminderController`, which triggers the `SendReminder` command. This command uses the `DatabaseReminderRepository` to check if the requested entity exists. If not, an error is returned; otherwise, the `Reminder` is retrieved.
 
-Este lembrete passa pelo processo de mutação onde sua propriedade de status do envio deve ser alterada para `true`, porém caso já possua este valor, ele já foi enviado, então dispara uma exceção. 
+The reminder then undergoes a mutation process where its send status property must be changed to `true`. If it already has this value, it has already been sent, so an exception is thrown.
 
-Caso a mutação seja realizada com sucesso, o gateway de envio de mensagens  `ZAPIMessageSenderGateway` realiza o envio do lembrete processado com humor do personagem, se tudo ocorrer corretamente o  `DatabaseReminderRepository` atualiza o estado do lembrete, agora com status de enviado verdadeiro, na base de dados. Por fim, uma mensagem de sucesso é retornada como resposta.
+If the mutation is successful, the message sending gateway `ZAPIMessageSenderGateway` sends the processed reminder with the character's humor. If everything goes well, the `DatabaseReminderRepository` updates the reminder's status to sent in the database. Finally, a success message is returned as a response.
 
 ---
 
-##### Delete Reminder  - /api/reminder/{id} (DELETE) 
+##### Delete Reminder - /api/reminder/{id} (DELETE)
 
 ![DeleteReminder](docs/diagrams/imgs/DeleteReminder.jpg)
 
-Para deletar um lembrete, deve-se acessar este endpoint via método DELETE. A rota direciona os parâmetros e o corpo da requisição para o `DeleteReminderController`, que aciona o  o comando `DeleteReminder` enviando o id do lembrete a ser deletado. Este comando utiliza o `DatabaseReminderRepository` para verificar se a entidade requisitada existe. Se não existir, um erro é retornado; caso contrário, o `Reminder` é recuperado. 
+To delete a reminder, access this endpoint via DELETE method. The route directs the parameters and request body to the `DeleteReminderController`, which triggers the `DeleteReminder` command, sending the ID of the reminder to be deleted. This command uses the `DatabaseReminderRepository` to check if the requested entity exists. If not, an error is returned; otherwise, the `Reminder` is retrieved.
 
-Por fim o `DatabaseReminderRepository`  realiza a remoção desta entidade do banco de dados. Por fim, uma mensagem de sucesso é retornada como resposta.
+Finally, the `DatabaseReminderRepository` removes the entity from the database. A success message is returned as a response.
 
 ---
 
-##### List Reminders  - /api/reminder (GET) 
+##### List Reminders - /api/reminder (GET)
 
 ![ListReminders](docs/diagrams/imgs/ListReminders.jpg)
 
-Para listar lembretes, deve-se acessar este endpoint via método GET. A rota direciona os parâmetros e o corpo da requisição para o `ListRemindersController`, que aciona o  o comando `ListReminders` enviando um DTO de entrada com dados de paginação e filtro. Este comando utiliza o `DatabaseReminderRepository` listar os lembretes com base no DTO de entrada. Um array de objetos `Reminder` é retornado e convertido para um DTO de saída,  o controller retorna este DTO como JSON.
- 
+To list reminders, access this endpoint via GET method. The route directs the parameters and request body to the `ListRemindersController`, which triggers the `ListReminders` command, sending an input DTO with pagination and filter data. This command uses the `DatabaseReminderRepository` to list reminders based on the input DTO. An array of `Reminder` objects is returned and converted to an output DTO, which the controller returns as JSON.
+
 ---
 
-##### List Characters  - /api/characters (GET) 
+##### List Characters - /api/characters (GET)
 
 ![ListCharacters](docs/diagrams/imgs/ListCharacters.jpg)
 
-Para listar personagens, deve-se acessar este endpoint via método GET. A rota direciona os parâmetros e o corpo da requisição para o `ListCharactersController`, que aciona o  o comando `ListCharacters` enviando um DTO de entrada com dados de paginação. Este comando utiliza o `DatabaseCharacterRepository` listar os personagens com base no DTO de entrada. Um array de objetos `Character` é retornado e convertido para um DTO de saída,  o controller retorna este DTO como JSON.
+To list characters, access this endpoint via GET method. The route directs the parameters and request body to the `ListCharactersController`, which triggers the `ListCharacters` command, sending an input DTO with pagination data. This command uses the `DatabaseCharacterRepository` to list characters based on the input DTO. An array of `Character` objects is returned and converted to an output DTO, which the controller returns as JSON.
 
-#### List Reminder by Month  - /api/reminder/by-month/{month}/{year} (GET)
+#### List Reminder by Month - /api/reminder/by-month/{month}/{year} (GET)
 
-![ListRemindersByMonth!ListRemindersByMonth_5](docs/diagrams/imgs/ListRemindersByMonth.jpg)
+![ListRemindersByMonth](docs/diagrams/imgs/ListRemindersByMonth.jpg)
 
-Para listar lembretes por mês, deve-se acessar este endpoint via método GET. A rota direciona os parâmetros e o corpo da requisição para o `ListRemindersByMonthController`, que aciona o  o comando `ListRemindersByMonth` enviando o mês e ano como entrada de dados. Este comando utiliza o `DatabaseReminderRepository` listar os lembretes com base no DTO de entrada. Um array de objetos `Reminder` é retornado e convertido para um DTO de saída,  o controller retorna este DTO como JSON.
+To list reminders by month, access this endpoint via GET method. The route directs the parameters and request body to the `ListRemindersByMonthController`, which triggers the `ListRemindersByMonth` command, sending the month and year as input data. This command uses the `DatabaseReminderRepository` to list reminders based on the input DTO. An array of `Reminder` objects is returned and converted to an output DTO, which the controller returns as JSON.
 
-
-### Testes
+### Testing
 
 ![test-backend](docs/diagrams/imgs/test-backend.png)
 
-Foram realizados testes unitários e de integração com uma boa cobertura, sendo estes fáceis de implementar devido ao design de código seguido. 54 testes foram feitos, com 1137 asserções e 100% de acerto.
+Unit and integration tests were performed with good coverage, and they were easy to implement due to the code design followed. 54 tests were conducted, with 1137 assertions and a 100% success rate.
 
 <h3 id="front-end-2">Front-End</h3>
 
-
-#### Componentes
+#### Components
 
 ![Component-Tree](docs/diagrams/imgs/Component-Tree.png)
 
-Seguindo as melhores práticas do Vue, a interface foi dividida em componentes, onde cada um tem sua responsabilidade e é independente dos outros, prezando pelo baixo acoplamento. O sistema possui apenas uma `View`, que é renderizada quando o cliente requisita a rota base do sistema, o componente `App`, raiz do projeto, renderiza então esta `ManageRemindersView`.
+Following Vue's best practices, the interface is divided into components, each with its responsibility and independence from others, aiming for low coupling. The system has a single `View`, rendered when the client requests the base route of the system. The root component, `App`, then renders the `ManageRemindersView`.
 
-O componente irmão desta view, `SplashOverlay`, também é renderizado e, durante um segundo e meio, ele aparece na tela mostrando a logo do sistema e uma barra de progresso, dando a impressão de carregamento do projeto.
+A sibling component to this view, `SplashOverlay`, is also rendered and, for a second and a half, displays on the screen showing the system's logo and a progress bar, giving the impression of project loading.
 
-`ManageReminderView` possui cinco componentes filhos, sendo eles:
-- `Calendar`: Possui um calendário mostrando os lembretes do mês atual.
-- `ReminderList`: Lista os lembretes atrelados ao personagem escolhido pelo usuário, tendo como componente filho `ReminderCard`.
-- `ReminderFilter`: Permite alterar o número de lembretes por página e filtrar por enviados ou não enviados.
-- `SimpleToast`: Responsável por dar feedbacks visuais das ações para o usuário.
-- `AddReminderModal`: Responsável por permitir a adição de novos lembretes, tendo os seguintes componentes filhos:
-  - `ReminderForm`: Onde é possível adicionar o texto do lembrete e visualizar o personagem escolhido pelo usuário.
-  - `CharacterCard`: Uma listagem com personagens a serem selecionados.
-  - `SimpleToast`: Responsável por dar feedbacks visuais das ações para o usuário.
+`ManageReminderView` has five child components:
+- `Calendar`: Displays a calendar showing the current month's reminders.
+- `ReminderList`: Lists reminders associated with the character chosen by the user, having a child component `ReminderCard`.
+- `ReminderFilter`: Allows changing the number of reminders per page and filtering by sent or unsent.
+- `SimpleToast`: Provides visual feedback on actions for the user.
+- `AddReminderModal`: Responsible for adding new reminders, with the following child components:
+  - `ReminderForm`: Allows adding the reminder text and viewing the character chosen by the user.
+  - `CharacterCard`: A listing of characters to be selected.
+  - `SimpleToast`: Provides visual feedback on actions for the user.
 
 #### Classes
 
 ![FrontEnd](docs/diagrams/imgs/FrontEnd.jpg)
- 
-A disposição de classes presentes no Front-End é menos complexa que a do Back-End, mas a comunicação entre as classes ainda segue um padrão de interações bem definido, especialmente focado na arquitetura hexagonal. De forma resumida: commands se comunicam com os gateways para realizar operações, e os gateways utilizam o cliente HTTP para interagir com a API. Essa estrutura promove um código mais modular, flexível e fácil de testar.
 
-#### Fluxo de Comunicação
+The class structure in the Front-End is less complex than in the Back-End, but the communication between classes still follows a well-defined interaction pattern, especially focusing on hexagonal architecture. In summary: commands communicate with gateways to perform operations, and gateways use the HTTP client to interact with the API. This structure promotes more modular, flexible, and testable code.
 
-1. **Commands e Gateways:**
+#### Communication Flow
+
+1. **Commands and Gateways:**
    - **CreateReminder, DeleteReminder, SendReminder, ListReminder, ListCharacters**:
-     - Cada uma dessas classes de command recebe uma instância do respectivo gateway (`ReminderGateway` ou `CharacterGateway`) via injeção de dependência.
-     - Quando o método `execute` é chamado em um command, ele delega a tarefa ao gateway correspondente, passando os parâmetros necessários.
-     - Exemplo: `CreateReminder` chama `create` no `ReminderGateway` para adicionar um novo lembrete.
+     - Each of these command classes receives an instance of the respective gateway (`ReminderGateway` or `CharacterGateway`) via dependency injection.
+     - When the `execute` method is called on a command, it delegates the task to the corresponding gateway, passing the necessary parameters.
+     - Example: `CreateReminder` calls `create` on `ReminderGateway` to add a new reminder.
 
-2. **Gateways e Cliente HTTP:**
-   - **ReminderGateway e APICharacterGateway**:
-     - Esses gateways utilizam `AxiosHttpClient` para fazer as chamadas HTTP para a API.
-     - Quando um método como `list`, `send`, `delete`, `create`, ou `list` é chamado no gateway, ele constrói a requisição HTTP e utiliza o `AxiosHttpClient` para enviá-la.
-     - Exemplo: `ReminderGateway` chama `post` no `AxiosHttpClient` para enviar um novo lembrete para a API.
+2. **Gateways and HTTP Client:**
+   - **ReminderGateway and APICharacterGateway**:
+     - These gateways use `AxiosHttpClient` to make HTTP calls to the API.
+     - When a method like `list`, `send`, `delete`, `create`, or `list` is called on the gateway, it builds the HTTP request and uses `AxiosHttpClient` to send it.
+     - Example: `ReminderGateway` calls `post` on `AxiosHttpClient` to send a new reminder to the API.
 
-3. **Cliente HTTP e API:**
+3. **HTTP Client and API:**
    - **AxiosHttpClient**:
-     - Esta classe é responsável por realizar as requisições HTTP reais.
-     - Ela fornece métodos como `get`, `post`, `delete`, `put`, que são utilizados pelos gateways para interagir com a API.
-     - Exemplo: `AxiosHttpClient.post` envia uma requisição `POST` para a API com os dados do novo lembrete.
+     - This class is responsible for performing the actual HTTP requests.
+     - It provides methods such as `get`, `post`, `delete`, `put`, which are used by gateways to interact with the API.
+     - Example: `AxiosHttpClient.post` sends a `POST` request to the API with the new reminder's data.
 
-#### Aparência
+#### Appearance
 
 ![screens](docs/screens.png)
 
-A apresentação do sistema foi desenvolvida visando trazer uma sensação de conforto e diversão. Para chegar neste resultado, o uso de cores diversas e componentes inspirados em apps gameficados foi essencial.
+The system's presentation was developed to provide a sense of comfort and fun. To achieve this result, the use of various colors and components inspired by gamified apps was essential.
 
-### Testes
+### Testing
 
 ![tests-front](docs/diagrams/imgs/test-front.png)
 
-Foram realizados testes unitários e de integração para as classes em `TypeScript` com uma boa cobertura, sendo estes fáceis de implementar devido ao design de código seguido. 8 suites de testes foram feitos, com 35 testes tendo asserções e 100% de acerto. Vale ressaltar que os testes dos componentes foram feitos manualmente, podendo ser realizados testes automatizados no futuro para assegurar melhor qualidade.
+Unit and integration tests were performed for the TypeScript classes with good coverage, and they were easy to implement due to the design followed. 8 test suites were created, with 35 tests having assertions and a 100% success rate. It is worth noting that component tests were done manually, and automated tests could be implemented in the future to ensure better quality.
 
-## Melhorias Futuras
+## Future Improvements
 
-Para melhorar ainda mais a aplicação ReminderFriendly, algumas das seguintes funcionalidades e melhorias podem ser consideradas:
+To further enhance the ReminderFriendly application, some of the following features and improvements could be considered:
 
-1. **Integração com Calendários**:
-   - Integrar com serviços de calendário como Google Calendar e Outlook para que os lembretes possam ser sincronizados automaticamente com os calendários dos usuários.
+1. **Calendar Integration:**
+   - Integrate with calendar services like Google Calendar and Outlook so that reminders can be automatically synchronized with users' calendars.
 
-2. **Suporte Multilíngue**:
-   - Adicionar suporte para múltiplos idiomas para alcançar um público mais amplo.
+2. **Multilingual Support:**
+   - Add support for multiple languages to reach a broader audience.
 
-3. **Testes Automatizados de Interface**:
-   - Implementar testes automatizados para os componentes de interface com ferramentas como Cypress ou Selenium e Vitest para assegurar a estabilidade da interface do usuário.
+3. **Automated Interface Testing:**
+   - Implement automated tests for interface components using tools like Cypress or Selenium and Vitest to ensure user interface stability.
 
- 
- 
-## Considerações Finais
+## Final Considerations
 
-Além da documentação presente neste README, também é possível observar as *issues* e *pull requests* fechados, dos quais servem como uma forma de observar cronologicamente as decisões tomadas para chegar ao resultado final.
+In addition to the documentation present in this README, it is also possible to observe the *issues* and *pull requests* closed, which serve as a way to chronologically review the decisions made to achieve the final result.
 
-Por fim, quero agradecer a <a href="https://kevi.com.br" target="_blank">Kevi - Retenção de Clientes</a> pela oportunidade de participar do processo seletivo, o qual foi bastante agrádavel e de muita riqueza para meu crescimento profissional.
+Finally, I want to thank <a href="https://kevi.com.br" target="_blank">Kevi - Retenção de Clientes</a> for the opportunity to participate in the selection process, which was very enjoyable and enriching for my professional growth.
